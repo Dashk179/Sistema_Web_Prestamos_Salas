@@ -18,9 +18,11 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/cubiculos', [App\Http\Controllers\HomeController::class, 'cubiculos'])->name('cubiculos');
 
-Route::get('/admin/cubiculos', [App\Http\Controllers\Admin\CubiculosController::class, 'index'])->name('admin.cubiculos');
+Route::get('/cubiculos', [App\Http\Controllers\HomeController::class, 'cubiculos'])->name('cubiculos');
+Route::get('/admin/cubiculos', [App\Http\Controllers\Admin\CubiculosController::class, 'index'])->name('admin.cubiculos.index');
+Route::post('/admin/cubiculos/store', [App\Http\Controllers\Admin\CubiculosController::class, 'store'])->name('admin.cubiculos.store');
+Route::post('/admin/cubiculos/{cubiculoId}/update', [App\Http\Controllers\Admin\CubiculosController::class, 'update'])->name('admin.cubiculos.update');
 
 
 Auth::routes();

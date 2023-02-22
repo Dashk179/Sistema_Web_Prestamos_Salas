@@ -1,13 +1,13 @@
 @extends('adminlte::page')
-
+@csrf
 @section('title', 'Admin - Cubiculos')
 
 @section('content')
 
 @section('content_header')
 <h1>
-    Cubiculos
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-create-category">
+    Cubiculo
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-create-cubiculos">
         Crear
     </button>
 </h1>
@@ -19,107 +19,41 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Listado de categorías</h3>
+                    <h3 class="card-title">Listado de cubiculos</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
                     <table id="categories" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th>Rendering engine</th>
-                            <th>Browser</th>
-                            <th>Platform(s)</th>
-                            <th>Engine version</th>
-                            <th>CSS grade</th>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripcion</th>
+                            <th>Opciones</th>
                         </tr>
                         </thead>
                         <tbody>
+                        @foreach($cubiculos as $cubiculo)
                         <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                                Explorer 4.0
+                            <td>{{$cubiculo ->id}}</td>
+                            <td>{{$cubiculo ->nombre}}   </td>
+                            <td>{{$cubiculo ->descripcion}}</td>
+                            <td>
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-update-cubiculos-{{$cubiculo->id}}">
+                                    Editar
+                                </button>
+                                <button class="btn btn-danger">Eliminar</button>
                             </td>
-                            <td>Win 95+</td>
-                            <td> 4</td>
-                            <td>X</td>
                         </tr>
-                        <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                                Explorer 5.0
-                            </td>
-                            <td>Win 95+</td>
-                            <td>5</td>
-                            <td>C</td>
-                        </tr>
-                        <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                                Explorer 5.5
-                            </td>
-                            <td>Win 95+</td>
-                            <td>5.5</td>
-                            <td>A</td>
-                        </tr>
-                        <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                                Explorer 6
-                            </td>
-                            <td>Win 98+</td>
-                            <td>6</td>
-                            <td>A</td>
-                        </tr>
-                        <tr>
-                            <td>Trident</td>
-                            <td>Internet Explorer 7</td>
-                            <td>Win XP SP2+</td>
-                            <td>7</td>
-                            <td>A</td>
-                        </tr>
-                        <tr>
-                            <td>Trident</td>
-                            <td>AOL browser (AOL desktop)</td>
-                            <td>Win XP</td>
-                            <td>6</td>
-                            <td>A</td>
-                        </tr>
-                        <tr>
-                            <td>Gecko</td>
-                            <td>Firefox 1.0</td>
-                            <td>Win 98+ / OSX.2+</td>
-                            <td>1.7</td>
-                            <td>A</td>
-                        </tr>
-                        <tr>
-                            <td>Gecko</td>
-                            <td>Firefox 1.5</td>
-                            <td>Win 98+ / OSX.2+</td>
-                            <td>1.8</td>
-                            <td>A</td>
-                        </tr>
-                        <tr>
-                            <td>Gecko</td>
-                            <td>Firefox 2.0</td>
-                            <td>Win 98+ / OSX.2+</td>
-                            <td>1.8</td>
-                            <td>A</td>
-                        </tr>
-                        <tr>
-                            <td>Gecko</td>
-                            <td>Firefox 3.0</td>
-                            <td>Win 2k+ / OSX.3+</td>
-                            <td>1.9</td>
-                            <td>A</td>
-                        </tr>
+                       @include('admin.cubiculos.modal-update-cubiculo')
+                            @endforeach
                         </tbody>
                         <tfoot>
                         <tr>
-                            <th>Rendering engine</th>
-                            <th>Browser</th>
-                            <th>Platform(s)</th>
-                            <th>Engine version</th>
-                            <th>CSS grade</th>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripcion</th>
+                            <th>Opciones</th>
                         </tr>
                         </tfoot>
                     </table>
@@ -134,7 +68,7 @@
 </div>
 
 <!-- modal -->
-<div class="modal fade" id="modal-create-category">
+<div class="modal fade" id="modal-create-cubiculos">
     <div class="modal-dialog">
         <div class="modal-content bg-default">
             <div class="modal-header">
@@ -142,29 +76,41 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
             </div>
-            <div class="modal-body">
-                <p>Proximamente, Formulario....</p>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-outline-light">Save changes</button>
-            </div>
+
+            <form action="{{route('admin.cubiculos.store')}}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="nombre">Nombre del Cubiculo</label>
+                        <input type="text" name="nombre" class="form-control" id="nombre" >
+                        <label for="descripcion">Descripcion</label>
+                        <input type="text" name="descripcion" class="form-control" id="descripcion" >
+                    </div>
+                </div>
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-outline-primary">Guardar</button>
+                </div>
+            </form>
         </div>
         <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+
 @stop
 
 
 @section('js')
 <script>
-    $(document).ready(function() {
-        $('#categories').DataTable( {
-            "order": [[ 3, "desc" ]]
-        } );
-    } );
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "order": [[3, "desc"]]
+        });
+    });
 </script>
 @stop
 

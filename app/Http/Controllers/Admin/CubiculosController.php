@@ -49,4 +49,13 @@ class CubiculosController extends Controller
 
         return redirect()->back();
     }
+
+    public function delete(Request $request,$cubiculoId)
+    {
+        $cubiculo = (Cubiculo::find($cubiculoId));
+        $cubiculo->delete();
+
+        return redirect()->back();
+    }
+
 }

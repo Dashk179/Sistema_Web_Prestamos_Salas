@@ -42,7 +42,11 @@
                                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-update-cubiculos-{{$cubiculo->id}}">
                                     Editar
                                 </button>
-                                <button class="btn btn-danger">Eliminar</button>
+                                <form action="{{route('admin.cubiculos.delete',$cubiculo->id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger">Eliminar</button>
+                                </form>
                             </td>
                         </tr>
                        @include('admin.cubiculos.modal-update-cubiculo')

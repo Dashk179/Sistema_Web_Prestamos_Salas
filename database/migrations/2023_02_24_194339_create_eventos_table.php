@@ -19,6 +19,8 @@ return new class extends Migration
             $table-> foreignId('user_id')->constrained('users');
             $table->dateTime("fecha_entrada");
             $table->dateTime("fecha_salida");
+            $table->dateTime("fecha_salida");
+            $table->string('email_solicitante');
             $table->timestamps();
         });
     }

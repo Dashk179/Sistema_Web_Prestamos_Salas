@@ -53,5 +53,9 @@ class User extends Authenticatable
          $this->notify(new ResetPasswordNotification($token));
      }
 
+    public function eventos(){
+        return $this->hasMany('App\Models\Evento');
+    }
+
 
 }

@@ -19,11 +19,11 @@ Route::get('/', function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/cubiculos', [App\Http\Controllers\HomeController::class, 'cubiculos'])->name('cubiculos');
-Route::get('/admin/cubiculos', [App\Http\Controllers\Admin\CubiculosController::class, 'index'])->name('admin.cubiculos.index');
-Route::post('/admin/cubiculos/store', [App\Http\Controllers\Admin\CubiculosController::class, 'store'])->name('admin.cubiculos.store');
-Route::post('/admin/cubiculos/{cubiculoId}/update', [App\Http\Controllers\Admin\CubiculosController::class, 'update'])->name('admin.cubiculos.update');
-Route::delete('/admin/cubiculos/{cubiculoId}/delete', [App\Http\Controllers\Admin\CubiculosController::class, 'delete'])->name('admin.cubiculos.delete');
+Route::get('/salas', [App\Http\Controllers\HomeController::class, 'salas'])->name('salas');
+Route::get('/admin/salas', [App\Http\Controllers\Admin\SalasController::class, 'index'])->name('admin.salas.index');
+Route::post('/admin/salas/store', [App\Http\Controllers\Admin\SalasController::class, 'store'])->name('admin.salas.store');
+Route::post('/admin/salas/{salaId}/update', [App\Http\Controllers\Admin\SalasController::class, 'update'])->name('admin.salas.update');
+Route::delete('/admin/salas/{salaId}/delete', [App\Http\Controllers\Admin\SalasController::class, 'delete'])->name('admin.salas.delete');
 
 
 Auth::routes();

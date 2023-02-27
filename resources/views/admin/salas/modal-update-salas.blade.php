@@ -1,21 +1,21 @@
-<!-- modal Update Cubiculo-->
-<div class="modal fade" id="modal-update-cubiculos-{{$cubiculo->id}}">
+<!-- modal Update Sala-->
+<div class="modal fade" id="modal-update-salas-{{$sala->id}}">
     <div class="modal-dialog">
         <div class="modal-content bg-default">
             <div class="modal-header">
-                <h4 class="modal-title">Actualizar Cubiculo</h4>
+                <h4 class="modal-title">Actualizar Sala</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
             </div>
 
-            <form action="{{route('admin.cubiculos.update',$cubiculo->id)}}" method="POST">
+            <form action="{{route('admin.salas.update',$sala->id)}}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="nombre">Cubiculo</label>
-                        <input type="text" name="nombre" class="form-control" id="nombre" value="{{$cubiculo ->nombre}} " >
+                        <label for="nombre">Nombre</label>
+                        <input type="text" name="nombre" class="form-control" id="nombre" value="{{$sala ->nombre}} " >
                         <label for="descripcion">Descripcion</label>
-                        <input type="text" name="descripcion" class="form-control" id="descripcion" value="{{$cubiculo->descripcion}}" >
+                        <input type="text" name="descripcion" class="form-control" id="descripcion" value="{{$sala->descripcion}}" >
                     </div>
                 </div>
 

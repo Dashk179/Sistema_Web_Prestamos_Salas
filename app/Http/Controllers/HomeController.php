@@ -25,9 +25,9 @@ class HomeController extends Controller
     {
         return view('index');
     }
-    public function cubiculos()
+    public function salas()
     {
-        return view('cubiculos');
+        return view('salas');
     }
 
 

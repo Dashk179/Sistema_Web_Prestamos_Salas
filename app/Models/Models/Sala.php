@@ -5,7 +5,9 @@ namespace App\Models\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cubiculo extends Model
+class Sala extends Model
 {
-    use HasFactory;
+  public function eventos(){
+      return $this->hasMany('App\Models\Evento');
+  }
 }

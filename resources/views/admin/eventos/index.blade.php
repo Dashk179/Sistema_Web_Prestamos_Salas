@@ -31,17 +31,25 @@
                                     <th>Sala</th>
                                     <th>Fecha Entrada</th>
                                     <th>Fecha Salida</th>
+                                    <th>Docente solicitante</th>
                                     <th>Opciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+{{--                                @foreach($user as $users)--}}
                                 @foreach($eventos as $evento)
+
+
+
                                     <tr>
                                         <td>{{$evento ->id}}</td>
+
                                         <td>{{$evento->user_id}}  </td>
-                                        <td>{{$evento ->salas_id}}</td>
+
+                                        <td>{{$evento->salas->nombre}}</td>
                                         <td>{{$evento ->fecha_entrada}}</td>
                                         <td>{{$evento ->fecha_salida}}</td>
+                                        <td>{{$evento ->email_solicitante}}</td>
                                         <td>
                                             <button type="button" class="btn btn-warning" data-toggle="modal"
                                                     data-target="#modal-update-eventos-{{$evento->id}}">
@@ -56,7 +64,11 @@
                                         </td>
                                     </tr>
                                     @include('admin.eventos.modal-update-eventos')
+
+
                                 @endforeach
+
+{{--                                @endforeach--}}
                                 </tbody>
                                 <tfoot>
                                 <tr>
@@ -95,7 +107,7 @@
                             <div class="form-group">
                                 <label for="user-id">Jefe de departamento</label>
                                 <p>{{ Auth::user()->name }} <p>
-                                <input type="text" name="user_id" class="form-control" id="user-id" value="{{ Auth::user()->id}}">
+                                <input type="text" name="user_id" class="form-control" id="user-id" value="{{Auth::user()->id}}">
                             </div>
                             <div class="form-group">
                                 <label for="salas-id">Sala</label>

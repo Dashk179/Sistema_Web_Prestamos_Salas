@@ -1,5 +1,5 @@
 <!-- modal Update Sala-->
-<div class="modal fade" id="modal-update-salas-{{$evento->id}}">
+<div class="modal fade" id="modal-update-eventos-{{$evento->id}}">
     <div class="modal-dialog">
         <div class="modal-content bg-default">
             <div class="modal-header">
@@ -12,11 +12,10 @@
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" name="nombre" class="form-control" id="nombre" value="{{$evento ->nombre}} ">
-                        <label for="descripcion">Descripcion</label>
-                        <input type="text" name="descripcion" class="form-control" id="descripcion"
-                               value="{{$evento->descripcion}}">
+                        <label for="fecha-salida">Fecha Entrada</label>
+                        <input type="datetime-local" name="fecha_entrada" class="form-control" id="fecha-entrada" value="{{$evento ->fecha_entrada}}">
+                        <label for="descripcion">Fecha Salida</label>
+                        <input type="datetime-local" name="fecha_salida" class="form-control" id="fecha-salida" value="{{$evento ->fecha_salida}}">
                     </div>
                 </div>
 

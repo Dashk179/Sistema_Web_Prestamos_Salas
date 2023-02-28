@@ -23,7 +23,7 @@ class EventosController extends Controller
         return view('admin.eventos.index',[
             'eventos'=> $eventos,
             'salas' => $salas,
-            'user' => $users
+            'users' => $users
         ]);
     }
     public function store(Request $request)
@@ -40,16 +40,16 @@ class EventosController extends Controller
         return redirect()->back();
     }
 //
-//    public function update(Request $request,$salaId)
-//    {
-//        $sala = (Sala::find($salaId));
-//
-//        $sala->nombre = $request-> nombre;
-//        $sala->descripcion = $request-> descripcion;
-//        $sala->save();
-//
-//        return redirect()->back();
-//    }
+    public function update(Request $request,$eventoId)
+    {
+        $evento = (Evento::find($eventoId));
+
+        $evento->fecha_entrada = $request-> fecha_entrada;
+        $evento->fecha_salida = $request-> fecha_salida;
+        $evento->save();
+
+        return redirect()->back();
+    }
 //
 //    public function delete(Request $request,$salaId)
 //    {

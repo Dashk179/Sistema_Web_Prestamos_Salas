@@ -9,6 +9,6 @@ class Evento extends Model
 {
     public function salas(){
         return $this->belongsTo('App\Models\Models\Sala');
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Models\User');
     }
 }

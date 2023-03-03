@@ -117,6 +117,11 @@
                                     <option value="{{$salas->id}}">{{$salas->nombre}}</option>
                                     @endforeach
                                 </select>
+                                @error('salas_id')
+                                <br>
+                                <small>*{{$message}}</small>
+                                <br>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="fecha-entrada">Fecha entrada</label>
@@ -125,6 +130,11 @@
                             <div class="form-group">
                                 <label for="fecha-salida">Fecha Salida</label>
                                 <input type="datetime-local" name="fecha_salida" class="form-control" id="fecha-salida">
+                                @error('fecha_salida')
+                                <br>
+                                <small>*{{$message}}</small>
+                                <br>
+                                @enderror
                             </div>
                                 <div class="form-group">
                                 <label for="descripcion">Correo Docente</label>

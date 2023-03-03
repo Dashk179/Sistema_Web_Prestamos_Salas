@@ -15,18 +15,20 @@ return new class extends Migration
     {
         Schema::create('eventos', function (Blueprint $table) {
             $table->id();
-            $table-> foreignId('sala_id')->constrained('salas');
+            $table-> foreignId('salas_id')->constrained('salas');
             $table-> foreignId('user_id')->constrained('users');
             $table->dateTime("fecha_entrada");
             $table->dateTime("fecha_salida");
             $table->dateTime("fecha_salida");
             $table->string('email_solicitante');
+            $table->unique(['salas_id','fecha_entrada']);//Restriction para que no existan registros con fecha_entrada y fecha_salida iguales con un mismo ID.
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
+     *
      *
      * @return void
      */

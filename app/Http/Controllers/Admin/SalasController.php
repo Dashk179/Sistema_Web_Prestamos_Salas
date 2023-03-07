@@ -26,7 +26,14 @@ class SalasController extends Controller
 //    ]);
 
         $newSala = new Sala();
-
+        
+        if($request -> hasFile('imgSala')){
+            $file = $request -> file('imgSala');
+            $url  = "images/salas/";
+            $nombreArchivo = time()  . '-' . $file->getClientOriginalName();
+            $subirImagen = $request->file('imgSala') -> move($url,$nombreArchivo);
+            $newEvento->imgSala = $url . $nombreArchivo;
+        }
         $newSala->nombre = $request-> nombre;
         $newSala->descripcion = $request-> descripcion;
         $newSala->save();

@@ -80,7 +80,7 @@
 
                     </div>
                 </div>
-    </section>
+     </section>
 
 
     @vite(['resources/sass/styles.sass','resources/css/styles.css'])

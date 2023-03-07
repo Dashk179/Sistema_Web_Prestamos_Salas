@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\EventoRegistrado;
 use App\Models\Models\Evento;
 use App\Models\Models\Sala;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+
+use Illuminate\Support\Facades\Mail;
+
 
 class EventosController extends Controller
 {
@@ -41,8 +45,13 @@ class EventosController extends Controller
 
 
         $newEvento = new Evento();
-        if($request -> has('imgSala')){
 
+        if($request -> hasFile('imgSala')){
+                $file = $request -> file('imgSala');
+                $url  = "images/salas/";
+                $nombreArchivo = time()  . '-' . $file->getClientOriginalName();
+                $subirImagen = $request->file('imgSala') -> move($url,$nombreArchivo);
+               $newEvento->imgSala = $url . $nombreArchivo;
         }
 
 
@@ -50,7 +59,8 @@ class EventosController extends Controller
         $sala_id = $newEvento->salas_id = $request->salas_id;
         $fecha_inicio = $newEvento->fecha_entrada = $request->fecha_entrada;
         $fecha_fin = $newEvento->fecha_salida = $request->fecha_salida;
-        $newEvento->email_solicitante = $request->email_solicitante;
+       $email_solicitante = $newEvento->email_solicitante = $request->email_solicitante;
+
 
 
 
@@ -63,6 +73,9 @@ class EventosController extends Controller
             })->get();
         if ($validacionRangoFechas->isEmpty()) {
             $newEvento->save();
+            //Una vez guardada la visita y registrada se envia un correo al usuario solicitante de la visita confirmando que su visita se registro con exito
+            $correo =  new EventoRegistrado($fecha_inicio,$fecha_fin);
+            Mail::to($email_solicitante)->send($correo);
             return redirect()->back();
         } else {
 
@@ -89,4 +102,6 @@ class EventosController extends Controller
 
         return redirect()->back();
     }
+
+
 }

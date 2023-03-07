@@ -29,6 +29,7 @@
                                     <th>ID</th>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
+                                    <th>Imagen</th>
                                     <th>Opciones</th>
                                 </tr>
                                 </thead>
@@ -38,6 +39,9 @@
                                         <td>{{$sala ->id}}</td>
                                         <td>{{$sala ->nombre}}   </td>
                                         <td>{{$sala ->descripcion}}</td>
+                                        <td>
+                                            <img src="{{asset($sala ->imgSala)}}" alt="{{$sala->nombre}}" class="img-fluid img-thumbnail" >
+                                        </td>
                                         <td>
                                             <button type="button" class="btn btn-warning" data-toggle="modal"
                                                     data-target="#modal-update-salas-{{$sala->id}}">
@@ -59,6 +63,7 @@
                                     <th>ID</th>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
+                                    <th>Imagen</th>
                                     <th>Opciones</th>
                                 </tr>
                                 </tfoot>
@@ -83,7 +88,7 @@
                             <span aria-hidden="true">&times;</span></button>
                     </div>
 
-                    <form action="{{route('admin.salas.store')}}" method="POST">
+                    <form action="{{route('admin.salas.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">
@@ -91,6 +96,10 @@
                                 <input type="text" name="nombre" class="form-control" id="nombre">
                                 <label for="descripcion">Descripcion</label>
                                 <input type="text" name="descripcion" class="form-control" id="descripcion">
+                            </div>
+                            <div class="form-group">
+                                <label for="imgSala">Imagen Sala</label>
+                                <input type="file" name="imgSala" class="form-control " id="imgSala"
                             </div>
                         </div>
 

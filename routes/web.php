@@ -31,5 +31,8 @@ Route::post('/admin/eventos/store', [App\Http\Controllers\Admin\EventosControlle
 Route::post('/admin/eventos/{eventoId}/update', [App\Http\Controllers\Admin\EventosController::class, 'update'])->name('admin.eventos.update');
 Route::delete('/admin/eventos/{eventoId}/delete', [App\Http\Controllers\Admin\EventosController::class, 'delete'])->name('admin.eventos.delete');
 
+//Esta ruta GET nos sirve para enviar los correos de Eventos Registrados a los usuarios solicitantes al momento de crear un evento
+Route::get('/admin/eventos/store', [App\Http\Controllers\Admin\EventosController::class, 'correoEventoRegistrado'])->name('admin.eventos.store');
+
 
 Auth::routes();

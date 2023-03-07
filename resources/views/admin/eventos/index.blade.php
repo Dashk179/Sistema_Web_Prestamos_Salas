@@ -97,7 +97,7 @@
                             <span aria-hidden="true">&times;</span></button>
                     </div>
 
-                    <form action="{{route('admin.eventos.store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('admin.eventos.store')}}" method="POST" >
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">
@@ -144,11 +144,6 @@
                                     <small>*{{$message}}</small>
                                     <br>
                                     @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="imgSala">Imagen Sala</label>
-                                    <input type="file" name="imgSala" class="form-control " id="imgSala"
-                                           id="email-solicitante">
                                 </div>
                             </div>
 

@@ -113,7 +113,19 @@
         <script>
             $(document).ready(function () {
                 $('#categories').DataTable({
-                    "order": [[3, "desc"]]
+                    "order": [[3, "desc"]],
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por pagina",
+                        "zeroRecords": "No se encontró ninguna coincidencia para tu búsqueda",
+                        "info": "Mostrando la pagina _PAGE_ de _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+                        'search': 'Buscar',
+                        'paginate':{
+                            'next': 'Siguiente',
+                            'previous':'Anterior'
+                        }
+                    }
                 });
             });
         </script>

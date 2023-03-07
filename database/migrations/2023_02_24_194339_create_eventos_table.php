@@ -21,6 +21,7 @@ return new class extends Migration
             $table->dateTime("fecha_salida");
             $table->dateTime("fecha_salida");
             $table->string('email_solicitante');
+            $table->string('imgSala');
             $table->unique(['salas_id','fecha_entrada']);//Restriction para que no existan registros con fecha_entrada y fecha_salida iguales con un mismo ID.
             $table->timestamps();
         });

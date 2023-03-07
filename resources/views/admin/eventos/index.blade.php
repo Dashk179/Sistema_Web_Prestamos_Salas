@@ -36,15 +36,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-{{--                                @foreach($user as $users)--}}
+                                {{--                                @foreach($user as $users)--}}
                                 @foreach($eventos as $evento)
-
-
-
                                     <tr>
                                         <td>{{$evento ->id}}</td>
 
-                                        <td>{{$evento->user_id}}  </td>
+                                        <td>{{ $evento->user_id}}  </td>
 
                                         <td>{{$evento->salas->nombre}}</td>
                                         <td>{{$evento ->fecha_entrada}}</td>
@@ -65,10 +62,9 @@
                                     </tr>
                                     @include('admin.eventos.modal-update-eventos')
 
-
                                 @endforeach
 
-{{--                                @endforeach--}}
+                                {{--                                @endforeach--}}
                                 </tbody>
                                 <tfoot>
                                 <tr>
@@ -101,20 +97,21 @@
                             <span aria-hidden="true">&times;</span></button>
                     </div>
 
-                    <form action="{{route('admin.eventos.store')}}" method="POST">
+                    <form action="{{route('admin.eventos.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="user-id">Jefe de departamento</label>
                                 <p>{{ Auth::user()->name }} <p>
-                                <input type="text" name="user_id" class="form-control" id="user-id" value="{{Auth::user()->id}}">
+                                    <input type="text" name="user_id" class="form-control" id="user-id"
+                                           value="{{Auth::user()->id}}">
                             </div>
                             <div class="form-group">
                                 <label for="salas-id">Sala</label>
                                 <select name="salas_id" id="salas-id" class="form-control">
-                                <option value=""> -- Elegir Sala --</option>
-                                @foreach($salas as $salas)
-                                    <option value="{{$salas->id}}">{{$salas->nombre}}</option>
+                                    <option value=""> -- Elegir Sala --</option>
+                                    @foreach($salas as $salas)
+                                        <option value="{{$salas->id}}">{{$salas->nombre}}</option>
                                     @endforeach
                                 </select>
                                 @error('salas_id')
@@ -122,30 +119,44 @@
                                 <small>*{{$message}}</small>
                                 <br>
                                 @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="fecha-entrada">Fecha entrada</label>
-                                <input type="datetime-local" name="fecha_entrada" class="form-control" id="fecha-entrada">
-                            </div>
-                            <div class="form-group">
-                                <label for="fecha-salida">Fecha Salida</label>
-                                <input type="datetime-local" name="fecha_salida" class="form-control" id="fecha-salida">
-                                @error('fecha_salida')
-                                <br>
-                                <small>*{{$message}}</small>
-                                <br>
-                                @enderror
-                            </div>
+                                </d iv>
                                 <div class="form-group">
-                                <label for="descripcion">Correo Docente</label>
-                                <input type="text" name="email_solicitante" class="form-control" id="email-solicitante">
+                                    <label for="fecha-entrada">Fecha entrada</label>
+                                    <input type="datetime-local" name="fecha_entrada" class="form-control"
+                                           id="fecha-entrada">
+                                </div>
+                                <div class="form-group">
+                                    <label for="fecha-salida">Fecha Salida</label>
+                                    <input type="datetime-local" name="fecha_salida" class="form-control"
+                                           id="fecha-salida">
+                                    @error('fecha_salida')
+                                    <br>
+                                    <small>*{{$message}}</small>
+                                    <br>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="descripcion">Correo Docente</label>
+                                    <input type="text" name="email_solicitante" class="form-control"
+                                           id="email-solicitante">
+                                    @error('email_solicitante')
+                                    <br>
+                                    <small>*{{$message}}</small>
+                                    <br>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="imgSala">Imagen Sala</label>
+                                    <input type="file" name="imgSala" class="form-control " id="imgSala"
+                                           id="email-solicitante">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-outline-primary">Guardar</button>
-                        </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cerrar
+                                </button>
+                                <button type="submit" class="btn btn-outline-primary">Guardar</button>
+                            </div>
                     </form>
                 </div>
                 <!-- /.modal-content -->
@@ -161,7 +172,19 @@
         <script>
             $(document).ready(function () {
                 $('#eventos').DataTable({
-                    "order": [[3, "desc"]]
+                    "order": [[3, "desc"]],
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por pagina",
+                        "zeroRecords": "No se encontró ninguna coincidencia para tu búsqueda",
+                        "info": "Mostrando la pagina _PAGE_ de _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+                        'search': 'Buscar',
+                        'paginate': {
+                            'next': 'Siguiente',
+                            'previous': 'Anterior'
+                        }
+                    }
                 });
             });
         </script>

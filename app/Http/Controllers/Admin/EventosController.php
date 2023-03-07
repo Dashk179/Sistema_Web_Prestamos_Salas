@@ -20,7 +20,7 @@ class EventosController extends Controller
     public function index()
     {
         $salas = Sala::all();
-        $users = User::all();
+        $users = \Auth::user()::all();
         $eventos = Evento::all();
         return view('admin.eventos.index', [
             'eventos' => $eventos,
@@ -35,11 +35,15 @@ class EventosController extends Controller
             'salas_id' => 'required',
             'user_id' => 'required',
             'fecha_entrada' => 'required|date',
-            'fecha_salida' => 'required|date|after:fecha_entrada'
+            'fecha_salida' => 'required|date|after:fecha_entrada',
+            'email_solicitante' => 'required'
         ]);
 
 
         $newEvento = new Evento();
+        if($request -> has('imgSala')){
+
+        }
 
 
         $newEvento->user_id = $request->user_id;
@@ -47,6 +51,8 @@ class EventosController extends Controller
         $fecha_inicio = $newEvento->fecha_entrada = $request->fecha_entrada;
         $fecha_fin = $newEvento->fecha_salida = $request->fecha_salida;
         $newEvento->email_solicitante = $request->email_solicitante;
+
+
 
         //Registrar si una sala esta disponible dentro del rango de las fechas
         $validacionRangoFechas = DB::table('eventos')

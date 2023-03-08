@@ -12,18 +12,16 @@ use Illuminate\Queue\SerializesModels;
 class EventoRegistrado extends Mailable
 {
     use Queueable, SerializesModels;
-public $fecha_entrada;
-public $fecha_salida;
+public $evento;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct( $fecha_inicio,$fecha_fin)
+    public function __construct( $evento)
     {
-     $this->fecha_entrada = $fecha_inicio;
-     $this->fecha_salida  =  $fecha_fin;
+     $this->evento = $evento;
     }
 
     /**

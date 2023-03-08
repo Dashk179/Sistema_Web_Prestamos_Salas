@@ -73,8 +73,10 @@ class EventosController extends Controller
             })->get();
         if ($validacionRangoFechas->isEmpty()) {
             $newEvento->save();
+
+            $evento = $newEvento;
             //Una vez guardada la visita y registrada se envia un correo al usuario solicitante de la visita confirmando que su visita se registro con exito
-            $correo =  new EventoRegistrado($fecha_inicio,$fecha_fin);
+            $correo =  new EventoRegistrado($evento);
             Mail::to($email_solicitante)->send($correo);
             return redirect()->back();
         } else {

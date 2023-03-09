@@ -36,6 +36,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+
                                 {{--                                @foreach($user as $users)--}}
                                 @foreach($eventos as $evento)
                                     <tr>

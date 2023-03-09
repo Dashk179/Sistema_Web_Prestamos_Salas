@@ -38,7 +38,7 @@ class EventosController extends Controller
         $request->validate([
             'salas_id' => 'required',
             'user_id' => 'required',
-            'fecha_entrada' => 'required|date',
+            'fecha_entrada' => 'required|date|before:fecha_salida',
             'fecha_salida' => 'required|date|after:fecha_entrada',
             'email_solicitante' => 'required'
         ]);
@@ -67,21 +67,32 @@ class EventosController extends Controller
         //Registrar si una sala esta disponible dentro del rango de las fechas
         $validacionRangoFechas = DB::table('eventos')
             ->where('salas_id', $sala_id)
-            ->where(function ($request) use ($fecha_inicio, $fecha_fin) {
-                $request->whereBetween('fecha_entrada', [$fecha_inicio, $fecha_fin])
-                    ->orWhereBetween('fecha_salida', [$fecha_inicio, $fecha_fin]);
-            })->get();
-        if ($validacionRangoFechas->isEmpty()) {
-            $newEvento->save();
+            ->where(function ($query) use ($fecha_inicio, $fecha_fin) {
+                $query->whereBetween('fecha_entrada', [$fecha_inicio, $fecha_fin])
+                    ->orWhereBetween('fecha_salida', [$fecha_inicio, $fecha_fin])
+                    ->orWhere(function ($query) use ($fecha_inicio, $fecha_fin) {
+                        $query->where('fecha_entrada', '<=', $fecha_inicio)
+                            ->where('fecha_salida', '>=', $fecha_fin);
+                    });
+            })
+            ->get();
 
-            $evento = $newEvento;
-            //Una vez guardada la visita y registrada se envia un correo al usuario solicitante de la visita confirmando que su visita se registro con exito
-            $correo =  new EventoRegistrado($evento);
-            Mail::to($email_solicitante)->send($correo);
-            return redirect()->back();
+        if ($validacionRangoFechas->count()>0) {
+            return response()->json([
+                'error' => 'Ya hay eventos programados para esa sala registrados en las fechas proporcionadas'
+            ],400);
+//            $newEvento->save();
+//
+//            $evento = $newEvento;
+//            //Una vez guardada la visita y registrada se envia un correo al usuario solicitante de la visita confirmando que su visita se registro con exito
+//            $correo =  new EventoRegistrado($evento);
+//            Mail::to($email_solicitante)->send($correo);
+//            return redirect()->back();
         } else {
-
-            return redirect()->back();
+            return response()->json([
+                'message' => 'Eventos agregados correctamente.'
+            ], 200);
+           // return redirect()->back();
         }
     }
 

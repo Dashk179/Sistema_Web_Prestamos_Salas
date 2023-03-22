@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Mail\EventoRegistrado;
 use App\Models\Models\Evento;
+use App\Models\Models\Evento_material_tablas;
+use App\Models\Models\Materiales;
 use App\Models\Models\Sala;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -23,18 +25,21 @@ class EventosController extends Controller
 
     public function index()
     {
+
         $salas = Sala::all();
-        $users = \Auth::user()::all();
-        $eventos = Evento::all();
+        $materiales = Materiales::all();
+        $eventos = Evento::with('materiales','users')->get();
         return view('admin.eventos.index', [
             'eventos' => $eventos,
             'salas' => $salas,
-            'users' => $users
+            'materiales' => $materiales
         ]);
     }
 
+
     public function store(Request $request)
     {
+
         $request->validate([
             'salas_id' => 'required',
             'user_id' => 'required',
@@ -46,12 +51,12 @@ class EventosController extends Controller
 
         $newEvento = new Evento();
 
-        if($request -> hasFile('imgSala')){
-                $file = $request -> file('imgSala');
-                $url  = "images/salas/";
-                $nombreArchivo = time()  . '-' . $file->getClientOriginalName();
-                $subirImagen = $request->file('imgSala') -> move($url,$nombreArchivo);
-               $newEvento->imgSala = $url . $nombreArchivo;
+        if ($request->hasFile('imgSala')) {
+            $file = $request->file('imgSala');
+            $url = "images/salas/";
+            $nombreArchivo = time() . '-' . $file->getClientOriginalName();
+            $subirImagen = $request->file('imgSala')->move($url, $nombreArchivo);
+            $newEvento->imgSala = $url . $nombreArchivo;
         }
 
 
@@ -59,10 +64,7 @@ class EventosController extends Controller
         $sala_id = $newEvento->salas_id = $request->salas_id;
         $fecha_inicio = $newEvento->fecha_entrada = $request->fecha_entrada;
         $fecha_fin = $newEvento->fecha_salida = $request->fecha_salida;
-       $email_solicitante = $newEvento->email_solicitante = $request->email_solicitante;
-
-
-
+        $email_solicitante = $newEvento->email_solicitante = $request->email_solicitante;
 
         //Registrar si una sala esta disponible dentro del rango de las fechas
         $validacionRangoFechas = DB::table('eventos')
@@ -77,25 +79,32 @@ class EventosController extends Controller
             })
             ->get();
 
-        if ($validacionRangoFechas->count()>0) {
-            return response()->json([
-                'error' => 'Ya hay eventos programados para esa sala registrados en las fechas proporcionadas'
-            ],400);
-//            $newEvento->save();
-//
-//            $evento = $newEvento;
-//            //Una vez guardada la visita y registrada se envia un correo al usuario solicitante de la visita confirmando que su visita se registro con exito
-//            $correo =  new EventoRegistrado($evento);
-//            Mail::to($email_solicitante)->send($correo);
-//            return redirect()->back();
+        if ($validacionRangoFechas->count() > 0) {
+            session()->flash('success', 'Las fechas que elegiste para el evento estan en uso prueba con otras fechas.');
+            return redirect()->back();
         } else {
-            return response()->json([
-                'message' => 'Eventos agregados correctamente.'
-            ], 200);
-           // return redirect()->back();
+
+            $newEvento->save();
+            $newEvento ->materiales()->sync(  $request->input('materiales'),[]);//Aqui se guardan todos los materiales registrados en un evento
+
+            $evento = $newEvento;
+            //Una vez guardada la visita y registrada se envia un correo al usuario solicitante de la visita confirmando que su visita se registro con exito
+            $correo = new EventoRegistrado($evento);
+            Mail::to($email_solicitante)->send($correo);
+            session()->flash('success', 'El evento se ha registrado con exito hemos enviado la información al  correo electrónico del docente solicitante.');
+            return redirect()->back();
+
         }
     }
 
+//    public function materiales($eventoId){
+//        $evento_material = Evento_material_tablas::find($eventoId);
+//        $materiales = $evento_material->materiales;
+//        return view('admin.eventos.index', [
+//
+//            'materiales' => $materiales
+//        ]);
+//    }
 //
     public function update(Request $request, $eventoId)
     {

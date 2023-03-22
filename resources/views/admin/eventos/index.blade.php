@@ -5,6 +5,17 @@
 @section('content')
 
     @section('content_header')
+        @if(session('success'))
+            <div class="alert alert-warning">
+                {{ session('success') }}
+            </div>
+        @endif
+        @section('content_header')
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
         <h1>
             Eventos
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-create-eventos">
@@ -32,6 +43,7 @@
                                     <th>Fecha Entrada</th>
                                     <th>Fecha Salida</th>
                                     <th>Docente solicitante</th>
+                                    <th>Materiales</th>
                                     <th>Opciones</th>
                                 </tr>
                                 </thead>
@@ -42,12 +54,26 @@
                                     <tr>
                                         <td>{{$evento ->id}}</td>
 
-                                        <td>{{ $evento->user_id}}  </td>
+                                        <td>
+                                            @if ($user = App\Models\User::find($evento->user_id))
+                                                {{ $user->name }}
+                                            @else
+                                                Usuario desconocido
+                                            @endif
+                                        </td>
 
                                         <td>{{$evento->salas->nombre}}</td>
                                         <td>{{$evento ->fecha_entrada}}</td>
                                         <td>{{$evento ->fecha_salida}}</td>
                                         <td>{{$evento ->email_solicitante}}</td>
+
+                                        <td>
+
+                                            @foreach($evento->materiales as $material)
+                                                <li>{{ $material->nombre }}</li>
+                                            @endforeach
+                                        </td>
+
                                         <td>
                                             <button type="button" class="btn btn-warning" data-toggle="modal"
                                                     data-target="#modal-update-eventos-{{$evento->id}}">
@@ -74,6 +100,8 @@
                                     <th>Sala</th>
                                     <th>Fecha Entrada</th>
                                     <th>Fecha Salida</th>
+                                    <th>Docente solicitante</th>
+                                    <th>Materiales</th>
                                     <th>Opciones</th>
                                 </tr>
                                 </tfoot>
@@ -146,6 +174,28 @@
                                     <br>
                                     @enderror
                                 </div>
+                                <div class="form-group">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Material</th>
+                                            <th>Cantidad</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach ($materiales as $material)
+                                            <tr>
+                                                <td><input type="checkbox" name="materiales[]" value="{{ $material->id }}"></td>
+                                                <td>{{ $material->nombre }}</td>
+                                                <td><input type="number" name="cantidad[]" value="{{ $material->cantidad }}" disabled></td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
                             </div>
 
                             <div class="modal-footer justify-content-between">
@@ -154,6 +204,7 @@
                                 <button type="submit" class="btn btn-outline-primary">Guardar</button>
                             </div>
                     </form>
+
                 </div>
                 <!-- /.modal-content -->
             </div>
@@ -180,6 +231,17 @@
                             'next': 'Siguiente',
                             'previous': 'Anterior'
                         }
+                    }
+                });
+            });
+        </script>
+        <script>
+            document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {
+                checkbox.addEventListener('change', function() {
+                    var cantidadInput = this.closest('tr').querySelector('input[name="cantidad[]"]');
+                    cantidadInput.disabled = !this.checked;
+                    if (!this.checked) {
+                        cantidadInput.value = '';
                     }
                 });
             });

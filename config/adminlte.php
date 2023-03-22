@@ -330,6 +330,11 @@ return [
             'icon' => 'fas fa-fw fa-lock',
         ],
         [
+            'text' => 'Materiales',
+            'url'  => '/admin/materiales',
+            'icon' => 'fas fa-fw fa-lock',
+        ],
+        [
             'text'    => 'Materiales',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [

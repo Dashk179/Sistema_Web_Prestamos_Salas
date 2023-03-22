@@ -31,6 +31,12 @@ Route::post('/admin/eventos/store', [App\Http\Controllers\Admin\EventosControlle
 Route::post('/admin/eventos/{eventoId}/update', [App\Http\Controllers\Admin\EventosController::class, 'update'])->name('admin.eventos.update');
 Route::delete('/admin/eventos/{eventoId}/delete', [App\Http\Controllers\Admin\EventosController::class, 'delete'])->name('admin.eventos.delete');
 
+Route::get('/materiales', [App\Http\Controllers\HomeController::class, 'materiales'])->name('materiales');
+Route::get('/admin/materiales', [App\Http\Controllers\Admin\MaterialesController::class, 'index'])->name('admin.materiales.index');
+Route::post('/admin/materiales/store', [App\Http\Controllers\Admin\MaterialesController::class, 'store'])->name('admin.materiales.store');
+Route::post('/admin/materiales/{materialId}/update', [App\Http\Controllers\Admin\MaterialesController::class, 'update'])->name('admin.materiales.update');
+Route::delete('/admin/materiales/{materialId}/delete', [App\Http\Controllers\Admin\MaterialesController::class, 'delete'])->name('admin.materiales.delete');
+
 //
 //Route::get('/admin/eventos', [App\Http\Controllers\Admin\EventomaterialtablasController::class, 'index'])->name('admin.eventos.index');
 //Esta ruta GET nos sirve para enviar los correos de Eventos Registrados a los usuarios solicitantes al momento de crear un evento

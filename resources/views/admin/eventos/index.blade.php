@@ -1,21 +1,21 @@
 @extends('adminlte::page')
 @csrf
-@section('title', 'Admin - Eventos')
+@section('title', 'TecNM | Admin - Eventos')
 
 @section('content')
 
-    @section('content_header')
-        @if(session('success'))
-            <div class="alert alert-warning">
-                {{ session('success') }}
-            </div>
-        @endif
+
         @section('content_header')
             @if(session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
                 </div>
+            @elseif(session('warning'))
+                <div class="alert alert-warning">
+                    {{ session('warning') }}
+                </div>
             @endif
+
         <h1>
             Eventos
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-create-eventos">
@@ -33,7 +33,7 @@
                             <h3 class="card-title">Listado de Eventos</h3>
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body">
+                        <div class="card-body table-responsive">
                             <table id="eventos" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
@@ -126,13 +126,13 @@
                             <span aria-hidden="true">&times;</span></button>
                     </div>
 
-                    <form action="{{route('admin.eventos.store')}}" method="POST" >
+                    <form action="{{route('admin.eventos.store')}}" method="POST"   onsubmit="changeFechaSalida()">
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="user-id">Jefe de departamento</label>
                                 <p>{{ Auth::user()->name }} <p>
-                                    <input type="text" name="user_id" class="form-control" id="user-id"
+                                    <input type="hidden" name="user_id" class="form-control" id="user-id"
                                            value="{{Auth::user()->id}}">
                             </div>
                             <div class="form-group">
@@ -148,16 +148,32 @@
                                 <small>*{{$message}}</small>
                                 <br>
                                 @enderror
-                                </d iv>
+                                </div>
                                 <div class="form-group">
                                     <label for="fecha-entrada">Fecha entrada</label>
-                                    <input type="datetime-local" name="fecha_entrada" class="form-control"
-                                           id="fecha-entrada">
+                                    <input type="datetime-local" name="fecha_entrada" class="form-control" id="fecha-entrada">
                                 </div>
                                 <div class="form-group">
                                     <label for="fecha-salida">Fecha Salida</label>
-                                    <input type="datetime-local" name="fecha_salida" class="form-control"
-                                           id="fecha-salida">
+{{--                                    <input type="datetime-local" name="fecha_salida" class="form-control"id="fecha-salida">--}}
+                                    <input type="time" name="fecha_salida" class="form-control" id="fecha-salida">
+                                        @section('js')
+                                        <script>
+                                        function changeFechaSalida() {
+                                            // Obtener la hora del segundo input
+                                            var horaSalida = document.getElementById("fecha-salida").value;
+
+                                            // Obtener la fecha del primer input
+                                            var fechaEntrada = document.getElementById("fecha-entrada").value;
+
+                                            // Concatenar la fecha y hora en el formato deseado
+                                            var fechaSalida = fechaEntrada.substring(0, 11) + horaSalida;
+
+                                            // Usar la fecha y hora concatenada como valor del segundo input
+                                            document.getElementById("fecha-salida").value = fechaSalida;
+                                        }
+           </script>
+                                    @stop
                                     @error('fecha_salida')
                                     <br>
                                     <small>*{{$message}}</small>
@@ -216,6 +232,7 @@
 
 
     @section('js')
+
         <script>
             $(document).ready(function () {
                 $('#eventos').DataTable({

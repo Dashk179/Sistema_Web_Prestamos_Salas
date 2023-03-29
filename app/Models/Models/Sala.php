@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Sala extends Model
 {
   public function eventos(){
-      return $this->hasMany('App\Models\Models\Evento');
+      return $this->hasMany('App\Models\Models\Evento','salas_id');
   }
 }

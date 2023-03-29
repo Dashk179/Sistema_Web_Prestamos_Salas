@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Models\Sala;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SalasController extends Controller
 {
@@ -21,17 +22,12 @@ class SalasController extends Controller
 
     public function store(Request $request)
     {
-        //   dd(Sala::all());
-//        Sala:create([
-//            'nombre' => $request->cubiculo
-//    ]);
-
         $newSala = new Sala();
 
         if ($request->hasFile('imgSala')) {
             $file = $request->file('imgSala');
             $url = "images/salas/";
-            $nombreArchivo = time() . '-' . $file->getClientOriginalName();
+            $nombreArchivo = $file->getClientOriginalName();
             $subirImagen = $request->file('imgSala')->move($url, $nombreArchivo);
             $newSala->imgSala = $url . $nombreArchivo;
         }
@@ -40,28 +36,41 @@ class SalasController extends Controller
         $newSala->save();
 
         return redirect()->back();
-        //  dd($request->cubiculo);
-        //dd( $request->all());// en Laravel es una función de ayuda que significa "dump and die" (imprimir y detener)
-        // y se utiliza para imprimir información sobre una variable o un conjunto de datos y detener el flujo de ejecución de la aplicación
 
 
     }
 
     public function update(Request $request, $salaId)
     {
-        $sala = (Sala::find($salaId));
+        $sala = Sala::find($salaId);
 
+
+        if ($request->hasFile('imgSala')) {
+            if (file_exists(public_path($sala->imgSala))) {
+                unlink(public_path($sala->imgSala));
+            }
+            $file = $request->file('imgSala');
+            $url = "images/salas/";
+            $nombreArchivo = $file->getClientOriginalName();
+            $subirImagen = $request->file('imgSala')->move($url, $nombreArchivo);
+            $sala->imgSala = $url . $nombreArchivo;
+        }
         $sala->nombre = $request->nombre;
         $sala->descripcion = $request->descripcion;
         $sala->save();
-
         return redirect()->back();
     }
 
     public function delete(Request $request, $salaId)
     {
-        $sala = (Sala::find($salaId));
-        $sala->delete();
+        $sala = Sala::find($salaId);
+
+        if (file_exists(public_path($sala->imgSala))) {
+            unlink(public_path($sala->imgSala));
+        }
+
+        $sala -> delete();
+
 
         return redirect()->back();
     }

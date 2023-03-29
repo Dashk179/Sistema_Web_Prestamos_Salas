@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 @csrf
-@section('title', 'Admin - salas')
+@section('title', 'TecNM | Admin - salas')
 
 @section('content')
 
@@ -22,8 +22,8 @@
                             <h3 class="card-title">Listado de Salas</h3>
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body">
-                            <table id="categories" class="table table-bordered table-striped">
+                        <div class="card-body table-responsive">
+                            <table id="categories" class="table table-bordered table-striped" >
                                 <thead>
                                 <tr>
                                     <th>ID</th>
@@ -40,7 +40,7 @@
                                         <td>{{$sala ->nombre}}   </td>
                                         <td>{{$sala ->descripcion}}</td>
                                         <td>
-                                            <img src="{{asset($sala ->imgSala)}}" alt="{{$sala->nombre}}" class="img-fluid img-thumbnail" >
+                                            <img src="{{asset($sala->imgSala)}}" alt="{{$sala->nombre}}"  class="img-thumbnail img-fluid" style="height: 150px; width: 150px;">
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-warning" data-toggle="modal"
@@ -99,7 +99,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="imgSala">Imagen Sala</label>
-                                <input type="file" name="imgSala" class="form-control " id="imgSala"
+                                <input type="file" name="imgSala" class="form-control " id="imgSala">
                             </div>
                         </div>
 

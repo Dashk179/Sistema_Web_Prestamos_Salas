@@ -13,13 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
-    return view('index');
+    return redirect('home');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/salas', [App\Http\Controllers\HomeController::class, 'salas'])->name('salas');
+Route::get('/salas/{salaId}', [App\Http\Controllers\HomeController::class, 'salas'])->name('salas');
+
+
+
 Route::get('/admin/salas', [App\Http\Controllers\Admin\SalasController::class, 'index'])->name('admin.salas.index');
 Route::post('/admin/salas/store', [App\Http\Controllers\Admin\SalasController::class, 'store'])->name('admin.salas.store');
 Route::post('/admin/salas/{salaId}/update', [App\Http\Controllers\Admin\SalasController::class, 'update'])->name('admin.salas.update');

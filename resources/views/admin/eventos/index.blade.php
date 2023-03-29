@@ -4,17 +4,16 @@
 
 @section('content')
 
-
-        @section('content_header')
-            @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @elseif(session('warning'))
-                <div class="alert alert-warning">
-                    {{ session('warning') }}
-                </div>
-            @endif
+    @section('content_header')
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @elseif(session('warning'))
+            <div class="alert alert-warning">
+                {{ session('warning') }}
+            </div>
+        @endif
 
         <h1>
             Eventos
@@ -126,7 +125,7 @@
                             <span aria-hidden="true">&times;</span></button>
                     </div>
 
-                    <form action="{{route('admin.eventos.store')}}" method="POST"   onsubmit="changeFechaSalida()">
+                    <form action="{{route('admin.eventos.store')}}" method="POST" onsubmit="changeFechaSalida()">
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">
@@ -148,77 +147,62 @@
                                 <small>*{{$message}}</small>
                                 <br>
                                 @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="fecha-entrada">Fecha entrada</label>
-                                    <input type="datetime-local" name="fecha_entrada" class="form-control" id="fecha-entrada">
-                                </div>
-                                <div class="form-group">
-                                    <label for="fecha-salida">Fecha Salida</label>
-{{--                                    <input type="datetime-local" name="fecha_salida" class="form-control"id="fecha-salida">--}}
-                                    <input type="time" name="fecha_salida" class="form-control" id="fecha-salida">
-                                        @section('js')
-                                        <script>
-                                        function changeFechaSalida() {
-                                            // Obtener la hora del segundo input
-                                            var horaSalida = document.getElementById("fecha-salida").value;
-
-                                            // Obtener la fecha del primer input
-                                            var fechaEntrada = document.getElementById("fecha-entrada").value;
-
-                                            // Concatenar la fecha y hora en el formato deseado
-                                            var fechaSalida = fechaEntrada.substring(0, 11) + horaSalida;
-
-                                            // Usar la fecha y hora concatenada como valor del segundo input
-                                            document.getElementById("fecha-salida").value = fechaSalida;
-                                        }
-           </script>
-                                    @stop
-                                    @error('fecha_salida')
-                                    <br>
-                                    <small>*{{$message}}</small>
-                                    <br>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="descripcion">Correo Docente</label>
-                                    <input type="text" name="email_solicitante" class="form-control"
-                                           id="email-solicitante">
-                                    @error('email_solicitante')
-                                    <br>
-                                    <small>*{{$message}}</small>
-                                    <br>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <table>
-                                        <thead>
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha-entrada">Fecha entrada</label>
+                                <input type="datetime-local" name="fecha_entrada" class="form-control"
+                                       id="fecha-entrada">
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha-salida">Fecha Salida</label>
+                                <input type="datetime-local" name="fecha_salida" class="form-control" id="fecha-salida">
+                                @error('fecha_salida')
+                                <br>
+                                <small>*{{$message}}</small>
+                                <br>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="descripcion">Correo Docente</label>
+                                <input type="text" name="email_solicitante" class="form-control"
+                                       id="email-solicitante">
+                                @error('email_solicitante')
+                                <br>
+                                <small>*{{$message}}</small>
+                                <br>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Material</th>
+                                        <th>Cantidad</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($materiales as $material)
                                         <tr>
-                                            <th></th>
-                                            <th>Material</th>
-                                            <th>Cantidad</th>
+                                            <td><input type="checkbox" name="materiales[]" value="{{ $material->id }}">
+                                            </td>
+                                            <td>{{ $material->nombre }}</td>
+                                            <td><input type="number" name="cantidad[]" value="{{ $material->cantidad }}"
+                                                       disabled></td>
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach ($materiales as $material)
-                                            <tr>
-                                                <td><input type="checkbox" name="materiales[]" value="{{ $material->id }}"></td>
-                                                <td>{{ $material->nombre }}</td>
-                                                <td><input type="number" name="cantidad[]" value="{{ $material->cantidad }}" disabled></td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-
-
+                                    @endforeach
+                                    </tbody>
+                                </table>
                             </div>
 
-                            <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cerrar
-                                </button>
-                                <button type="submit" class="btn btn-outline-primary">Guardar</button>
-                            </div>
+
+                        </div>
+
+                        <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cerrar
+                            </button>
+                            <button type="submit" class="btn btn-outline-primary">Guardar</button>
+                        </div>
                     </form>
 
                 </div>
@@ -253,8 +237,8 @@
             });
         </script>
         <script>
-            document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {
-                checkbox.addEventListener('change', function() {
+            document.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
+                checkbox.addEventListener('change', function () {
                     var cantidadInput = this.closest('tr').querySelector('input[name="cantidad[]"]');
                     cantidadInput.disabled = !this.checked;
                     if (!this.checked) {

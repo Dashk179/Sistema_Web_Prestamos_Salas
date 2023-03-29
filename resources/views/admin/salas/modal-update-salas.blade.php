@@ -8,7 +8,7 @@
                     <span aria-hidden="true">&times;</span></button>
             </div>
 
-            <form action="{{route('admin.salas.update',$sala->id)}}" method="POST">
+            <form action="{{route('admin.salas.update',$sala->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
@@ -16,7 +16,12 @@
                         <input type="text" name="nombre" class="form-control" id="nombre" value="{{$sala ->nombre}} " >
                         <label for="descripcion">Descripcion</label>
                         <input type="text" name="descripcion" class="form-control" id="descripcion" value="{{$sala->descripcion}}" >
-                    </div>
+                        <label for="imgSala">Imagen Sala </label>
+                        <div class="form-group">
+                        <img src="{{asset($sala->imgSala)}}" alt="{{$sala->nombre}}" class="img-thumbnail img-fluid" style="height: 150px; width: 150px;">
+                            <input type="file" name="imgSala" class="form-control" id="imgSala" value="{{$sala->imgSala}}" >
+                        </div>
+                     </div>
                 </div>
 
                 <div class="modal-footer justify-content-between">

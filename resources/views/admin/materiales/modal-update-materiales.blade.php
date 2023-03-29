@@ -16,6 +16,8 @@
                         <input type="text" name="nombre" class="form-control" id="nombre" value="{{$material ->nombre}} " >
                         <label for="descripcion">Descripcion</label>
                         <input type="text" name="descripcion" class="form-control" id="descripcion" value="{{$material->descripcion}}" >
+                        <label for="cantidad">Cantidad</label>
+                        <input type="number" name="cantidad" class="form-control" id="cantidad" value="{{$material->cantidad}}" >
                     </div>
                 </div>
 

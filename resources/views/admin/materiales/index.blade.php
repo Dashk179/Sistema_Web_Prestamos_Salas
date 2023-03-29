@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 @csrf
-@section('title', 'Admin - materiales')
+@section('title', 'TecNM |Admin - Materiales')
 
 @section('content')
 
@@ -22,7 +22,7 @@
                             <h3 class="card-title">Listado de Materiales</h3>
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body">
+                        <div class="card-body table-responsive">
                             <table id="materiales" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>

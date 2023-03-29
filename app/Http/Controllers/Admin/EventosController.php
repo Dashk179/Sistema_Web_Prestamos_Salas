@@ -44,7 +44,6 @@ class EventosController extends Controller
             'salas_id' => 'required',
             'user_id' => 'required',
             'fecha_entrada' => 'required|date|before:fecha_salida',
-            'fecha_salida' => 'required|date|after:fecha_entrada',
             'email_solicitante' => 'required'
         ]);
 
@@ -80,18 +79,19 @@ class EventosController extends Controller
             ->get();
 
         if ($validacionRangoFechas->count() > 0) {
-            session()->flash('success', 'Las fechas que elegiste para el evento estan en uso prueba con otras fechas.');
+            session()->flash('warning', 'Las fechas que elegiste para el evento en la sala en uso prueba con otras fechas.');
             return redirect()->back();
         } else {
 
             $newEvento->save();
             $newEvento ->materiales()->sync(  $request->input('materiales'),[]);//Aqui se guardan todos los materiales registrados en un evento
 
-            $evento = $newEvento;
+
             //Una vez guardada la visita y registrada se envia un correo al usuario solicitante de la visita confirmando que su visita se registro con exito
-            $correo = new EventoRegistrado($evento);
-            Mail::to($email_solicitante)->send($correo);
-            session()->flash('success', 'El evento se ha registrado con exito hemos enviado la información al  correo electrónico del docente solicitante.');
+          //  $evento = $newEvento;
+//            $correo = new EventoRegistrado($evento);
+//            Mail::to($email_solicitante)->send($correo);
+           session()->flash('success', 'El evento se ha registrado con exito hemos enviado la información al  correo electrónico del docente solicitante.');
             return redirect()->back();
 
         }

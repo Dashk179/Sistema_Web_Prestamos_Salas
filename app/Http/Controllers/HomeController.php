@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Models\Sala;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+
     }
 
     /**
@@ -23,11 +24,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('index');
+
+        $salas = Sala::all();
+
+
+        foreach ($salas as $sala) {
+            $eventos = $sala->eventos()->orderBy('fecha_entrada', 'asc')->get();
+            $sala->eventos = $eventos;
+        }
+
+        return view('index',['salas' => $salas]);//Aqui pasamos las  salas a la vista
     }
-    public function salas()
+    public function salas($salaId)
     {
-        return view('salas');
+        $salas = Sala::find($salaId);
+        return view('salas',['salas' => $salas]);
     }
 
 

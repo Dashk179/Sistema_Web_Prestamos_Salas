@@ -6,54 +6,45 @@
     <div class="row justify-content-center">
         <!-- Post -->
         <div class="col-12 col-md-7 text-center">
-            <h1>Morelos</h1>
+            <h1>{{$salas->nombre}}</h1>
             <hr>
-            <img src="images/cubiculo1.jpg" alt="Post Javascript" class="img-fluid">
+            <img src="{{asset($salas->imgSala)}}"alt="Post Javascript" class="img-fluid">
 
             <p class="text-left mt-3 post-txt">
                 <span>Descripcion</span>
                 <span class="float-right">  </span>
             </p>
             <p class="text-left">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Eaque nemo accusantium libero hic repellat corporis assumenda
-                debitis adipisci modi expedita inventore vel excepturi,
-                facere animi accusamus? Voluptatem ab ad harum?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Eaque nemo accusantium libero hic repellat corporis assumenda
-                debitis adipisci modi expedita inventore vel excepturi,
-                facere animi accusamus? Voluptatem ab ad harum?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Eaque nemo accusantium libero hic repellat corporis assumenda
-                debitis adipisci modi expedita inventore vel excepturi,
-                facere animi accusamus? Voluptatem ab ad harum?
+                {{$salas->descripcion}}
             </p>
-            <p class="text-left post-txt"><i>Sala</i></p>
+            <p class="text-left post-txt"><i>Edificio F</i></p>
         </div>
 
         <!-- Entradas recientes -->
         <div class="col-md-3 offset-md-1">
             <p>Proximas Visitas</p>
-            <div class="row mb-4">
-                <div class="col-4 p-0">
-                    <a href="#">
-                        <img src="images/3.png" class="img-fluid rounded" width="100" alt="">
-                    </a>
-                </div>
-                <div class="col-7 pl-0">
-                    <a href="#" class="link-post">YYYY-MM-DD hh:mm:ss</a>
-                </div>
-            </div>
-            <div class="row mb-4">
-                <div class="col-4 p-0">
-                    <a href="#">
-                        <img src="images/5.png" class="img-fluid rounded" width="100" alt="">
-                    </a>
-                </div>
-                <div class="col-7 pl-0">
-                    <a href="#" class="link-post">YYYY-MM-DD hh:mm:ss</a>
-                </div>
-            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Hora de entrada</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach ($salas->eventos()->orderBy('fecha_entrada', 'asc')->get() as $evento)
+                    @if($evento->fecha_entrada >= now())
+                        <tr>
+                            <td>{{ \Carbon\Carbon::parse($evento->fecha_entrada)->format('Y-m-d') }}</td>
+                            <td>{{ substr(\Carbon\Carbon::parse($evento->fecha_entrada)->toTimeString(), 0, 5) }}</td>
+                        </tr>
+                    @endif
+                @endforeach
+                </tbody>
+            </table>
+
+
+
+
         </div>
 
     </div>

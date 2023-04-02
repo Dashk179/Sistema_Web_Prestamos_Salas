@@ -39,8 +39,9 @@
                                     <th>ID</th>
                                     <th>Jefe de departamento</th>
                                     <th>Sala</th>
-                                    <th>Fecha Entrada</th>
-                                    <th>Fecha Salida</th>
+                                    <th>Fecha</th>
+                                    <th>Hora entrada</th>
+                                    <th>Hora Salida</th>
                                     <th>Docente solicitante</th>
                                     <th>Materiales</th>
                                     <th>Opciones</th>
@@ -62,8 +63,9 @@
                                         </td>
 
                                         <td>{{$evento->salas->nombre}}</td>
-                                        <td>{{$evento ->fecha_entrada}}</td>
-                                        <td>{{$evento ->fecha_salida}}</td>
+                                        <td>{{ \Carbon\Carbon::parse($evento->fecha_entrada)->locale('es')->format('l, d F Y') }}</td>
+                                        <td>{{ substr(\Carbon\Carbon::parse($evento->fecha_entrada)->toTimeString(), 0, 5) }}</td>
+                                        <td>{{ substr(\Carbon\Carbon::parse($evento->fecha_salida)->toTimeString(), 0, 5) }}</td>
                                         <td>{{$evento ->email_solicitante}}</td>
 
                                         <td>
@@ -97,8 +99,9 @@
                                     <th>ID</th>
                                     <th>Jefe de departamento</th>
                                     <th>Sala</th>
-                                    <th>Fecha Entrada</th>
-                                    <th>Fecha Salida</th>
+                                    <th>Fecha</th>
+                                    <th>Hora entrada</th>
+                                    <th>Hora Salida</th>
                                     <th>Docente solicitante</th>
                                     <th>Materiales</th>
                                     <th>Opciones</th>
@@ -150,8 +153,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="fecha-entrada">Fecha entrada</label>
-                                <input type="datetime-local" name="fecha_entrada" class="form-control"
-                                       id="fecha-entrada">
+                                <input type="datetime-local" name="fecha_entrada" class="form-control"    id="fecha-entrada">
+                                @error('fecha_entrada')
+                                <br>
+                                <small>*{{$message}}</small>
+                                <br>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="fecha-salida">Fecha Salida</label>

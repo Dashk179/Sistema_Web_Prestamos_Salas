@@ -94,12 +94,27 @@
                             <div class="form-group">
                                 <label for="nombre">Nombre de la Sala</label>
                                 <input type="text" name="nombre" class="form-control" id="nombre">
+                                @error('nombre')
+                                <br>
+                                <small>*{{$message}}</small>
+                                <br>
+                                @enderror
                                 <label for="descripcion">Descripcion</label>
                                 <input type="text" name="descripcion" class="form-control" id="descripcion">
+                                @error('descripcion')
+                                <br>
+                                <small>*{{$message}}</small>
+                                <br>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="imgSala">Imagen Sala</label>
                                 <input type="file" name="imgSala" class="form-control " id="imgSala">
+                                @error('imgSala')
+                                <br>
+                                <small>*{{$message}}</small>
+                                <br>
+                                @enderror
                             </div>
                         </div>
 

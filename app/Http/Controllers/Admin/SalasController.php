@@ -22,6 +22,12 @@ class SalasController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'nombre' => 'required',
+            'descripcion' => 'required',
+            'imgSala' => 'required'
+        ]);
+
         $newSala = new Sala();
 
         if ($request->hasFile('imgSala')) {

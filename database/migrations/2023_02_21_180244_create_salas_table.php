@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('salas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('descripcion');
+            $table->string('descripcion','654');
             $table->string('imgSala');
             $table->timestamps();
         });

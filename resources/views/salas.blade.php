@@ -28,6 +28,7 @@
                 <tr>
                     <th>Fecha</th>
                     <th>Hora de entrada</th>
+                    <th>Hora de salida</th>
                 </tr>
                 </thead>
                 <tbody>

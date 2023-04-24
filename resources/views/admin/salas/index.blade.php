@@ -38,7 +38,7 @@
                                     <tr>
                                         <td>{{$sala ->id}}</td>
                                         <td>{{$sala ->nombre}}   </td>
-                                        <td>{{$sala ->descripcion}}</td>
+                                        <td style="max-width: 200px; overflow-x: auto;">{{$sala->descripcion}}</td>
                                         <td>
                                             <img src="{{asset($sala->imgSala)}}" alt="{{$sala->nombre}}"  class="img-thumbnail img-fluid" style="height: 150px; width: 150px;">
                                         </td>

@@ -17,7 +17,11 @@
         /* RESET STYLES */
         img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
         table { border-collapse: collapse !important; }
-        body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
+        body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important;
+            background-image: url('/public/images/encabezado.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
 
         /* iOS BLUE LINKS */
         a[x-apple-data-detectors] {
@@ -52,54 +56,11 @@
 
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
     <tr>
-        <td align="center" style="background-color: #eeeeee;" bgcolor="#eeeeee">
-            <!--[if (gte mso 9)|(IE)]>
-            <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
-                <tr>
-                    <td align="center" valign="top" width="600">
-            <![endif]-->
-            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
-                <tr>
-                    <td align="center" valign="top" style="font-size:0; padding: 35px;" bgcolor="#044767">
-                        <!--[if (gte mso 9)|(IE)]>
-                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
-                            <tr>
-                                <td align="left" valign="top" width="300">
-                        <![endif]-->
-                        <div style="display:inline-block; max-width:50%; min-width:100px; vertical-align:top; width:100%;">
-                            <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:300px;">
-                                <tr>
-                                    <td align="left" valign="top" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 36px; font-weight: 800; line-height: 48px;" class="mobile-center">
-                                        <h1 style="font-size: 36px; font-weight: 800; margin: 0; color: #ffffff;">CubiTec</h1>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <!--[if (gte mso 9)|(IE)]>
-                        </td>
-                        <td align="right" width="300">
-                        <![endif]-->
-                        <div style="display:inline-block; max-width:50%; min-width:100px; vertical-align:top; width:100%;" class="mobile-hide">
-                            <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:300px;">
-                                <tr>
-                                    <td align="right" valign="top" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; line-height: 48px;">
-                                        <table cellspacing="0" cellpadding="0" border="0" align="right">
-                                            <tr>
-                                                <td style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 24px;">
-                                                    <a target="_blank" style="color: #ffffff; text-decoration: none;"><img src="{{asset($evento->salas->imgSala)}}" alt="{{$evento->salas->nombre}}" width="27" height="23" style="display: block; border: 0px;"/></a>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <!--[if (gte mso 9)|(IE)]>
-                        </td>
-                        </tr>
-                        </table>
-                        <![endif]-->
-                    </td>
+        <td>
+            <div style="width: 100%; height: 100%;">
+                <img src="/public/images/logopages.png'" style="width: 100%; height: 100%;">
+            </div>
+        </td>
                 </tr>
                 <tr>
                     <td align="center" style="padding: 35px 35px 20px 35px; background-color: #ffffff;" bgcolor="#ffffff">
@@ -137,18 +98,25 @@
                                         </tr>
                                         <tr>
                                             <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
-                                                Fecha Entrada :
+                                                Fecha:
                                             </td>
                                             <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
-                                                {{ $evento->fecha_entrada }}
+                                                {{ \Carbon\Carbon::parse($evento->fecha_entrada)->locale('es')->formatLocalized('%A, %d de %B de %Y') }}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
-                                                Fecha Salida:
+                                                Hora Entrada:
                                             </td>
                                             <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
-                                                {{$evento ->fecha_salida}}
+                                                {{ substr(\Carbon\Carbon::parse($evento->fecha_entrada)->toTimeString(), 0, 5) }}
+                                            </td>
+                                        </tr> <tr>
+                                            <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
+                                                Hora Salida:
+                                            </td>
+                                            <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
+                                                {{ substr(\Carbon\Carbon::parse($evento->fecha_salida)->toTimeString(), 0, 5) }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -159,6 +127,16 @@
                                                 {{ Auth::user()->name }}
                                             </td>
                                         </tr>
+                                        <table>
+                                            <tr>
+                                                <th style="text-align: left; font-weight: bold;">Lista de Materiales:</th>
+                                            </tr>
+                                            @foreach($evento->materiales as $material)
+                                                <tr>
+                                                    <td>{{ $material->nombre }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </table>
                                     </table>
                                 </td>
                             </tr>

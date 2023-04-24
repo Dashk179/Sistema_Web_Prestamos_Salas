@@ -62,8 +62,8 @@
                                             @endif
                                         </td>
 
-                                        <td>{{$evento->salas->nombre}}</td>
-                                        <td>{{ \Carbon\Carbon::parse($evento->fecha_entrada)->locale('es')->format('l, d F Y') }}</td>
+                                        <td>{{$evento->salas->nombre ?? 'N/A' }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($evento->fecha_entrada)->locale('es')->formatLocalized('%A, %d de %B de %Y') }}</td>
                                         <td>{{ substr(\Carbon\Carbon::parse($evento->fecha_entrada)->toTimeString(), 0, 5) }}</td>
                                         <td>{{ substr(\Carbon\Carbon::parse($evento->fecha_salida)->toTimeString(), 0, 5) }}</td>
                                         <td>{{$evento ->email_solicitante}}</td>

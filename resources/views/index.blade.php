@@ -31,8 +31,8 @@
                             <div class="card-body">
                                 <small class="card-txt-category">Sala</small>
                                 <h5 class="card-title my-2">{{$sala->nombre}}</h5>
-                                <div class="d-card-text">
-                                    {{$sala->descripcion}}
+                                <div class="d-card-text"  style="text-align: justify;">
+                                    {{ Str::limit($sala->descripcion, 250, '...') }}
                                 </div>
                                 <a href="{{route('salas',$sala->id)}}" class="post-link"><b>Ver todas las visitas de la sala</b></a>
                                 <hr>

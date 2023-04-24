@@ -12,7 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
-
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Mail;
 
 
@@ -88,11 +88,12 @@ class EventosController extends Controller
 
 
             //Una vez guardada la visita y registrada se envia un correo al usuario solicitante de la visita confirmando que su visita se registro con exito
-          //  $evento = $newEvento;
-//            $correo = new EventoRegistrado($evento);
-//            Mail::to($email_solicitante)->send($correo);
+            $evento = $newEvento;
+            $correo = new EventoRegistrado($evento);
+            Mail::to($email_solicitante)->send($correo);
            session()->flash('success', 'El evento se ha registrado con exito hemos enviado la información al  correo electrónico del docente solicitante.');
-            return redirect()->back();
+
+       return redirect()->back();
 
         }
     }

@@ -104,6 +104,7 @@
                                 </button>
                                 <button type="submit" class="btn btn-outline-primary">Guardar</button>
                             </div>
+                        </div>
                     </form>
                 </div>
                 <!-- /.modal-content -->

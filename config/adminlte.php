@@ -337,6 +337,11 @@ return [
             'icon' => 'fas fa-microphone',
             'can' => 'admin.materiales.index',
         ],
+        [
+        'text' => 'Registrar Jefe de Departamento',
+        'url'  => '/register',
+        'icon' => 'fas fa-microphone',
+    ],
 //        [
 //            'text'    => 'Materiales',
 //            'icon'    => 'fas fa-fw fa-share',

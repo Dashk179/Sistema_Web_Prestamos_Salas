@@ -20,5 +20,11 @@ class UserSeeder extends Seeder
             'email' => '17680195@cuautla.tecnm.mx',
             'password' => bcrypt('Arturo3534305')
         ])->assignRole('Admin');
+
+        User::create([
+            'name' => 'Jefe Departamento',
+            'email' => '17780195@cuautla.tecnm.mx',
+            'password' => bcrypt('Arturo3534305')
+        ])->assignRole('JefeDepartamento');
     }
 }

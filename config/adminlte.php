@@ -323,16 +323,19 @@ return [
             'text' => 'Salas',
             'url'  => '/admin/salas',
             'icon' => 'fas fa-school',
+            'can' => 'admin.salas.index',
         ],
         [
             'text' => 'Eventos',
             'url'  => '/admin/eventos',
             'icon' => 'fas fa-ticket-alt',
+            'can' => 'admin.eventos.index',
         ],
         [
             'text' => 'Materiales',
             'url'  => '/admin/materiales',
             'icon' => 'fas fa-microphone',
+            'can' => 'admin.materiales.index',
         ],
 //        [
 //            'text'    => 'Materiales',

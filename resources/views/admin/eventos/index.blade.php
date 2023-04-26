@@ -80,12 +80,14 @@
                                                     data-target="#modal-update-eventos-{{$evento->id}}">
                                                 Editar
                                             </button>
+                                            @can('admin.eventos.delete')
                                             <form action="{{route('admin.eventos.delete',$evento->id)}}"
                                                   method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger">Eliminar</button>
                                             </form>
+                                                @endcan
                                         </td>
                                     </tr>
                                     @include('admin.eventos.modal-update-eventos')

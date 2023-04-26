@@ -65,6 +65,8 @@
                                     <a class="dropdown-item"  href="{{ route('logout') }}" onclick="event.preventDefault();  window.location.href='{{ route('admin.eventos.index') }}';">
                                         {{ __('Administrador') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('register') }}">{{ __('Registrar') }}</a>
+
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf

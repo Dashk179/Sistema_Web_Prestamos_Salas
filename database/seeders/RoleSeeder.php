@@ -30,22 +30,22 @@ class RoleSeeder extends Seeder
         Permission::create(['name'=>'salas']) ->syncRoles([$adm,$jefeDepartamento]);
 
         //Permisos para Salas
-        Permission::create(['name'=>'admin.salas.index']) ->syncRoles([$adm,$jefeDepartamento]);
-        Permission::create(['name'=>'admin.salas.store'])->syncRoles([$adm,$jefeDepartamento]);
-        Permission::create(['name'=>'admin.salas.update'])->syncRoles([$adm,$jefeDepartamento]);
-        Permission::create(['name'=>'admin.salas.delete'])->syncRoles([$adm,$jefeDepartamento]);
+        Permission::create(['name'=>'admin.salas.index']) ->syncRoles([$adm]);
+        Permission::create(['name'=>'admin.salas.store'])->syncRoles([$adm]);
+        Permission::create(['name'=>'admin.salas.update'])->syncRoles([$adm]);
+        Permission::create(['name'=>'admin.salas.delete'])->syncRoles([$adm]);
 
         //Permisos para Materiales
-        Permission::create(['name'=>'admin.materiales.index']) ->syncRoles([$adm,$jefeDepartamento]);
-        Permission::create(['name'=>'admin.materiales.store'])->syncRoles([$adm,$jefeDepartamento]);
-        Permission::create(['name'=>'admin.materiales.update'])->syncRoles([$adm,$jefeDepartamento]);
-        Permission::create(['name'=>'admin.materiales.delete'])->syncRoles([$adm,$jefeDepartamento]);
+        Permission::create(['name'=>'admin.materiales.index']) ->syncRoles([$adm]);
+        Permission::create(['name'=>'admin.materiales.store'])->syncRoles([$adm]);
+        Permission::create(['name'=>'admin.materiales.update'])->syncRoles([$adm]);
+        Permission::create(['name'=>'admin.materiales.delete'])->syncRoles([$adm]);
 
         //Permisos para Eventos
         Permission::create(['name'=>'admin.eventos.index']) ->syncRoles([$adm,$jefeDepartamento]);
         Permission::create(['name'=>'admin.eventos.store'])->syncRoles([$adm,$jefeDepartamento]);
-        Permission::create(['name'=>'admin.eventos.update'])->syncRoles([$adm,$jefeDepartamento]);
-        Permission::create(['name'=>'admin.eventos.delete'])->syncRoles([$adm,$jefeDepartamento]);
+        Permission::create(['name'=>'admin.eventos.update'])->syncRoles([$adm]);
+        Permission::create(['name'=>'admin.eventos.delete'])->syncRoles([$adm]);
 
 
     }

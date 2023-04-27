@@ -340,7 +340,7 @@ return [
         [
         'text' => 'Registrar Jefe de Departamento',
         'url'  => '/register',
-        'icon' => 'fas fa-microphone',
+        'can' => 'register',
     ],
 //        [
 //            'text'    => 'Materiales',

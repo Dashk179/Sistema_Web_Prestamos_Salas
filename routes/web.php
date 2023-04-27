@@ -19,8 +19,9 @@ Route::get('/', function () {
 });
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/auth.register', [App\Http\Controllers\Auth\RegisterController::class,'showRegistrationForm'])->name('register');
 Route::get('/salas/{salaId}', [App\Http\Controllers\HomeController::class, 'salas'])->name('salas');
 
 

@@ -24,10 +24,12 @@ class RoleSeeder extends Seeder
         $permission = Permission::create(['name' =>'home'])->first();
         $permission->syncRoles([$adm, $jefeDepartamento]);
 
-
+    //Registro de usuarios
+        Permission::create(['name'=>'register']) ->syncRoles([$adm]);
 
         //Permisos para Salas
         Permission::create(['name'=>'salas']) ->syncRoles([$adm,$jefeDepartamento]);
+
 
         //Permisos para Salas
         Permission::create(['name'=>'admin.salas.index']) ->syncRoles([$adm]);

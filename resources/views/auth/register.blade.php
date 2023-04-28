@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 @csrf
-@section('title', 'TecNM |Admin - Materiales')
+@section('title', 'TecNM |Admin - Usuarios')
 
 @section('content')
 
@@ -28,21 +28,42 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Puesto</th>
                                     <th>Nombre</th>
-                                    <th>Descripcion</th>
-                                    <th>Cantidad</th>
+                                    <th>Correo</th>
                                     <th>Opciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($user = App\Models\User::all() as $usuario)
+                                    <tr>
+                                        <td>{{$usuario->id}}</td>
+                                        <td>
+                                            @foreach($usuario->getRoleNames() as $rol)
+                                                <span class="badge {{ $rol === 'Admin' ? 'bg-success' : 'bg-primary' }}">{{ $rol }}</span>
+                                            @endforeach
+                                        </td>
+                                       <td>{{$usuario->name}}</td>
+                                        <td>{{$usuario->email}}</td>
+                                        <td>
 
+                                                <form action="{{route('usuarios.delete',$usuario->id)}}"
+                                                      method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger">Eliminar</button>
+                                                </form>
+
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                                 <tfoot>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Puesto</th>
                                     <th>Nombre</th>
-                                    <th>Descripcion</th>
-                                    <th>Cantidad</th>
+                                    <th>Correo</th>
                                     <th>Opciones</th>
                                 </tr>
                                 </tfoot>

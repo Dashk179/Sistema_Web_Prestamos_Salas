@@ -62,7 +62,7 @@
                                         {{ __('Administrador') }}
                                     </a>
 
-                                        <a class="dropdown-item" href="{{ route('register') }}">{{ __('Registrar Jefe Departamento') }}</a>
+{{--                                        <a class="dropdown-item" href="{{ route('register') }}">{{ __('Registrar Jefe Departamento') }}</a>--}}
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

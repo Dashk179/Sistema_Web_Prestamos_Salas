@@ -292,12 +292,12 @@ return [
     'menu' => [
         // Navbar items:
         [
-            'type'         => 'navbar-search',
-            'text'         => 'search',
+            'type' => 'navbar-search',
+            'text' => 'search',
             'topnav_right' => true,
         ],
         [
-            'type'         => 'fullscreen-widget',
+            'type' => 'fullscreen-widget',
             'topnav_right' => true,
         ],
 
@@ -308,8 +308,8 @@ return [
         ],
         [
             'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'url' => 'admin/blog',
+            'can' => 'manage-blog',
         ],
 //        [
 //            'text'        => 'pages',
@@ -321,27 +321,28 @@ return [
         ['header' => 'Administrador'],
         [
             'text' => 'Salas',
-            'url'  => '/admin/salas',
+            'url' => '/admin/salas',
             'icon' => 'fas fa-school',
             'can' => 'admin.salas.index',
         ],
         [
             'text' => 'Eventos',
-            'url'  => '/admin/eventos',
+            'url' => '/admin/eventos',
             'icon' => 'fas fa-ticket-alt',
             'can' => 'admin.eventos.index',
         ],
         [
             'text' => 'Materiales',
-            'url'  => '/admin/materiales',
+            'url' => '/admin/materiales',
             'icon' => 'fas fa-microphone',
             'can' => 'admin.materiales.index',
         ],
         [
-        'text' => 'Registrar Jefe de Departamento',
-        'url'  => '/register',
-        'can' => 'register',
-    ],
+            'text' => 'Registrar Jefe de Departamento',
+            'url' => '/register',
+            'icon' => 'fas fa-solid fa-user-plus',
+            'can' => 'register',
+        ],
 //        [
 //            'text'    => 'Materiales',
 //            'icon'    => 'fas fa-fw fa-share',

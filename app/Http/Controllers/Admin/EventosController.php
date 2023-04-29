@@ -84,6 +84,8 @@ class EventosController extends Controller
         } else {
 
             $newEvento->save();
+
+            //Aqui se guardan todos los materiales registrados en un evento
             $newEvento ->materiales()->sync(  $request->input('materiales'),[]);//Aqui se guardan todos los materiales registrados en un evento
 
 
@@ -117,6 +119,15 @@ class EventosController extends Controller
 
         return redirect()->back();
     }
+
+    public function getMaterialesPorSala(Request $request)
+    {
+        $sala_id = $request->input('sala_id');
+        $materiales = Sala::findOrFail($sala_id)->materiales;
+        return response()->json(['materiales' => $materiales]);
+    }
+
+
 
     public function delete(Request $request, $eventoId)
     {

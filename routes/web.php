@@ -40,6 +40,7 @@ Route::delete('/admin/salas/{salaId}/delete', [App\Http\Controllers\Admin\SalasC
 //Eventos
 Route::get('/eventos', [App\Http\Controllers\HomeController::class, 'eventos'])->name('eventos');
 Route::get('/admin/eventos', [App\Http\Controllers\Admin\EventosController::class, 'index'])->name('admin.eventos.index');
+Route::get('/admin/eventos/getMaterialesPorSala', [App\Http\Controllers\Admin\EventosController::class, 'getMaterialesPorSala'])->name('getMaterialesPorSala');
 Route::post('/admin/eventos/store', [App\Http\Controllers\Admin\EventosController::class, 'store'])->name('admin.eventos.store');
 Route::post('/admin/eventos/{eventoId}/update', [App\Http\Controllers\Admin\EventosController::class, 'update'])->name('admin.eventos.update');
 Route::delete('/admin/eventos/{eventoId}/delete', [App\Http\Controllers\Admin\EventosController::class, 'delete'])->name('admin.eventos.delete');

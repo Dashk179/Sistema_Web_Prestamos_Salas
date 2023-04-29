@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Models\Materiales;
 use App\Models\Models\Sala;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -16,8 +17,13 @@ class SalasController extends Controller
 
     public function index()
     {
-        $salas = Sala::all();
-        return view('admin.salas.index', ['salas' => $salas]);
+
+        $materiales = Materiales::all();
+        $salas= Sala::with('materiales')->get();
+        return view('admin.salas.index', [
+            'salas' => $salas,
+            'materiales' => $materiales,
+            ]);
     }
 
     public function store(Request $request)
@@ -41,6 +47,7 @@ class SalasController extends Controller
         $newSala->descripcion = $request->descripcion;
         $newSala->save();
 
+        $newSala ->materiales()->sync(  $request->input('materiales'),[]);
         return redirect()->back();
 
 

@@ -30,6 +30,7 @@
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
                                     <th>Imagen</th>
+                                    <th>Materiales</th>
                                     <th>Opciones</th>
                                 </tr>
                                 </thead>
@@ -41,6 +42,12 @@
                                         <td style="max-width: 200px; overflow-x: auto;">{{$sala->descripcion}}</td>
                                         <td>
                                             <img src="{{asset($sala->imgSala)}}" alt="{{$sala->nombre}}"  class="img-thumbnail img-fluid" style="height: 150px; width: 150px;">
+                                        </td>
+                                        <td>
+
+                                            @foreach($sala->materiales as $material)
+                                                <li>{{ $material->nombre }}</li>
+                                            @endforeach
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-warning" data-toggle="modal"
@@ -64,6 +71,7 @@
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
                                     <th>Imagen</th>
+                                    <th>Materiales</th>
                                     <th>Opciones</th>
                                 </tr>
                                 </tfoot>
@@ -115,6 +123,28 @@
                                 <small>*{{$message}}</small>
                                 <br>
                                 @enderror
+                            </div>
+                            <div class="form-group">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Material</th>
+                                        <th>Cantidad</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($materiales as $material)
+                                        <tr>
+                                            <td><input type="checkbox" name="materiales[]" value="{{ $material->id }}">
+                                            </td>
+                                            <td>{{ $material->nombre }}</td>
+                                            <td><input type="number" name="cantidad[]" value="{{ $material->cantidad }}"
+                                                       disabled></td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 

@@ -182,7 +182,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <table>
+                                <table id="tabla-materiales">
                                     <thead>
                                     <tr>
                                         <th></th>
@@ -193,11 +193,9 @@
                                     <tbody>
                                     @foreach ($materiales as $material)
                                         <tr>
-                                            <td><input type="checkbox" name="materiales[]" value="{{ $material->id }}">
-                                            </td>
+                                            <td><input type="checkbox" name="materiales[]" value="{{ $material->id }}"></td>
                                             <td>{{ $material->nombre }}</td>
-                                            <td><input type="number" name="cantidad[]" value="{{ $material->cantidad }}"
-                                                       disabled></td>
+                                            <td><input type="number" name="cantidad[]" value="{{ $material->cantidad }}" disabled></td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -256,6 +254,35 @@
                 });
             });
         </script>
+        <script>
+            $(document).ready(function() {
+                $('#salas-id').change(function() {
+                    var sala_id = $(this).val();
+                    $.ajax({
+                        url: "{{ route('getMaterialesPorSala') }}",
+                        type: "GET",
+                        data: {sala_id: sala_id},
+                        success: function(response) {
+                            var materiales = response.materiales;
+                            var tabla_materiales = $('#tabla-materiales tbody');
+                            tabla_materiales.empty();
+                            for (var i = 0; i < materiales.length; i++) {
+                                var material = materiales[i];
+                                var checkbox = '<td><input type="checkbox" name="materiales[]" value="' + material.id + '"></td>';
+                                var nombre = '<td>' + material.nombre + '</td>';
+                                var cantidad = '<td><input type="number" name="cantidad[]" value="' + material.cantidad + '" disabled></td>';
+                                var fila = '<tr>' + checkbox + nombre + cantidad + '</tr>';
+                                tabla_materiales.append(fila);
+                            }
+                        },
+                        error: function(response) {
+                            console.log(response);
+                        }
+                    });
+                });
+            });
+        </script>
+
     @stop
 
 @endsection

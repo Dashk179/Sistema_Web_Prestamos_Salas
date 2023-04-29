@@ -10,4 +10,8 @@ class Sala extends Model
   public function eventos(){
       return $this->hasMany('App\Models\Models\Evento','salas_id');
   }
+
+    public  function materiales(){
+        return $this->belongsToMany(Materiales::class,'material_salas', 'salas_id', 'materiales_id');
+    }
 }

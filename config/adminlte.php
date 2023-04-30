@@ -343,6 +343,11 @@ return [
             'icon' => 'fas fa-solid fa-user-plus',
             'can' => 'register',
         ],
+        [
+            'text' => 'Contenido Correo',
+            'url' => '/admin/correoContenido',
+            'icon' => 'fas fa-solid fa-user-plus',
+        ],
 //        [
 //            'text'    => 'Materiales',
 //            'icon'    => 'fas fa-fw fa-share',

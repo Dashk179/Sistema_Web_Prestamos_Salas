@@ -46,16 +46,19 @@ Route::post('/admin/eventos/{eventoId}/update', [App\Http\Controllers\Admin\Even
 Route::delete('/admin/eventos/{eventoId}/delete', [App\Http\Controllers\Admin\EventosController::class, 'delete'])->name('admin.eventos.delete');
 
 //Materiales
-Route::get('/materiales', [App\Http\Controllers\HomeController::class, 'materiales'])->middleware('can:materiales')->name('materiales');
-Route::get('/admin/materiales', [App\Http\Controllers\Admin\MaterialesController::class, 'index'])->middleware('can:materiales.index')->name('admin.materiales.index');
-Route::post('/admin/materiales/store', [App\Http\Controllers\Admin\MaterialesController::class, 'store'])->middleware('can:materiales.store')->name('admin.materiales.store');
-Route::post('/admin/materiales/{materialId}/update', [App\Http\Controllers\Admin\MaterialesController::class, 'update'])->middleware('can:materiales.update')->name('admin.materiales.update');
-Route::delete('/admin/materiales/{materialId}/delete', [App\Http\Controllers\Admin\MaterialesController::class, 'delete'])->middleware('can:materiales.delete')->name('admin.materiales.delete');
+Route::get('/admin/materiales', [App\Http\Controllers\Admin\MaterialesController::class, 'index'])->middleware('can:admin.materiales.index')->name('admin.materiales.index');
+Route::post('/admin/materiales/store', [App\Http\Controllers\Admin\MaterialesController::class, 'store'])->middleware('can:admin.materiales.store')->name('admin.materiales.store');
+Route::post('/admin/materiales/{materialId}/update', [App\Http\Controllers\Admin\MaterialesController::class, 'update'])->middleware('can:admin..materiales.update')->name('admin.materiales.update');
+Route::delete('/admin/materiales/{materialId}/delete', [App\Http\Controllers\Admin\MaterialesController::class, 'delete'])->middleware('can:admin.materiales.delete')->name('admin.materiales.delete');
 
 //
 //Route::get('/admin/eventos', [App\Http\Controllers\Admin\EventomaterialtablasController::class, 'index'])->name('admin.eventos.index');
 //Esta ruta GET nos sirve para enviar los correos de Eventos Registrados a los usuarios solicitantes al momento de crear un evento
 Route::get('/admin/eventos/store', [App\Http\Controllers\Admin\EventosController::class, 'correoEventoRegistrado'])->name('admin.eventos.store');
 
+//Contenido de correo
+Route::get('admin/correoContenido', [App\Http\Controllers\Admin\ContenidoCorreoController::class, 'index'])->name('admin.correoContenido.index');
+Route::post('admin/correoContenido/store', [App\Http\Controllers\Admin\ContenidoCorreoController::class, 'store'])->name('admin.correoContenido.store');
+Route::post('admin/correoContenido/{contenidoId}/update', [App\Http\Controllers\Admin\ContenidoCorreoController::class, 'update'])->name('admin.correoContenido.update');
 
 Auth::routes();

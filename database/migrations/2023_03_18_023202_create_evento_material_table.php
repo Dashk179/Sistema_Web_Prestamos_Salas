@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('eventos_id')->nullable()->constrained('eventos')->onDelete('set null')->onUpdate('cascade');;
             $table->foreignId('materiales_id')->nullable()->constrained('materiales')->onDelete('cascade')->onUpdate('cascade');;
+            $table->integer('cantidad');
             $table->timestamps();
         });
     }

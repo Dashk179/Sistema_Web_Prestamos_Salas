@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('material_salas', function (Blueprint $table) {
+        Schema::create('contenido_correos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('materiales_id')->nullable()->constrained('materiales')->onDelete('set null')->onUpdate('cascade');;
-            $table->foreignId('salas_id')->nullable()->constrained('salas')->onDelete('cascade')->onUpdate('cascade');;
-            $table->integer('cantidad');
+            $table->string('encabezado');
+            $table->string('piedepagina');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('material_sala');
+        Schema::dropIfExists('contenido_correos');
     }
 };

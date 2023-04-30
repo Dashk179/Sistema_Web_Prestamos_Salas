@@ -32,10 +32,10 @@ Route::get('/salas/{salaId}', [App\Http\Controllers\HomeController::class, 'sala
 
 
 //Salas
-Route::get('/admin/salas', [App\Http\Controllers\Admin\SalasController::class, 'index'])->name('admin.salas.index');
-Route::post('/admin/salas/store', [App\Http\Controllers\Admin\SalasController::class, 'store'])->name('admin.salas.store');
-Route::post('/admin/salas/{salaId}/update', [App\Http\Controllers\Admin\SalasController::class, 'update'])->name('admin.salas.update');
-Route::delete('/admin/salas/{salaId}/delete', [App\Http\Controllers\Admin\SalasController::class, 'delete'])->name('admin.salas.delete');
+Route::get('/admin/salas', [App\Http\Controllers\Admin\SalasController::class, 'index'])->middleware('can:admin.salas.index')->name('admin.salas.index');
+Route::post('/admin/salas/store', [App\Http\Controllers\Admin\SalasController::class, 'store'])->middleware('can:admin.salas.store')->name('admin.salas.store');
+Route::post('/admin/salas/{salaId}/update', [App\Http\Controllers\Admin\SalasController::class, 'update'])->middleware('can:admin.salas.update')->name('admin.salas.update');
+Route::delete('/admin/salas/{salaId}/delete', [App\Http\Controllers\Admin\SalasController::class, 'delete'])->middleware('can:admin.salas.delete')->name('admin.salas.delete');
 
 //Eventos
 Route::get('/eventos', [App\Http\Controllers\HomeController::class, 'eventos'])->name('eventos');
@@ -46,11 +46,11 @@ Route::post('/admin/eventos/{eventoId}/update', [App\Http\Controllers\Admin\Even
 Route::delete('/admin/eventos/{eventoId}/delete', [App\Http\Controllers\Admin\EventosController::class, 'delete'])->name('admin.eventos.delete');
 
 //Materiales
-Route::get('/materiales', [App\Http\Controllers\HomeController::class, 'materiales'])->name('materiales');
-Route::get('/admin/materiales', [App\Http\Controllers\Admin\MaterialesController::class, 'index'])->name('admin.materiales.index');
-Route::post('/admin/materiales/store', [App\Http\Controllers\Admin\MaterialesController::class, 'store'])->name('admin.materiales.store');
-Route::post('/admin/materiales/{materialId}/update', [App\Http\Controllers\Admin\MaterialesController::class, 'update'])->name('admin.materiales.update');
-Route::delete('/admin/materiales/{materialId}/delete', [App\Http\Controllers\Admin\MaterialesController::class, 'delete'])->name('admin.materiales.delete');
+Route::get('/materiales', [App\Http\Controllers\HomeController::class, 'materiales'])->middleware('can:materiales')->name('materiales');
+Route::get('/admin/materiales', [App\Http\Controllers\Admin\MaterialesController::class, 'index'])->middleware('can:materiales.index')->name('admin.materiales.index');
+Route::post('/admin/materiales/store', [App\Http\Controllers\Admin\MaterialesController::class, 'store'])->middleware('can:materiales.store')->name('admin.materiales.store');
+Route::post('/admin/materiales/{materialId}/update', [App\Http\Controllers\Admin\MaterialesController::class, 'update'])->middleware('can:materiales.update')->name('admin.materiales.update');
+Route::delete('/admin/materiales/{materialId}/delete', [App\Http\Controllers\Admin\MaterialesController::class, 'delete'])->middleware('can:materiales.delete')->name('admin.materiales.delete');
 
 //
 //Route::get('/admin/eventos', [App\Http\Controllers\Admin\EventomaterialtablasController::class, 'index'])->name('admin.eventos.index');

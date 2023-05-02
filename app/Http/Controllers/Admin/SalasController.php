@@ -17,13 +17,13 @@ class SalasController extends Controller
 
     public function index()
     {
-
         $materiales = Materiales::all();
-        $salas= Sala::with('materiales')->get();
+        $salas = Sala::with(['materiales', 'materialesSalas'])->get();
         return view('admin.salas.index', [
             'salas' => $salas,
             'materiales' => $materiales,
-            ]);
+        ]);
+
     }
 
     public function store(Request $request)
@@ -47,7 +47,17 @@ class SalasController extends Controller
         $newSala->descripcion = $request->descripcion;
         $newSala->save();
 
-        $newSala ->materiales()->sync(  $request->input('materiales'),[]);
+        $materiales = $request->input('materiales');
+        $cantidades = $request->input('cantidad');
+
+        $materialSala = array();
+
+        foreach ($materiales as $material) {
+            $cantidad = $cantidades[$material] ?? 0;
+            $materialSala[$material] = ['cantidad' => $cantidad];
+        }
+
+        $newSala->materiales()->sync($materialSala);
         return redirect()->back();
 
 

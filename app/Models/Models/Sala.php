@@ -14,4 +14,10 @@ class Sala extends Model
     public  function materiales(){
         return $this->belongsToMany(Materiales::class,'material_salas', 'salas_id', 'materiales_id');
     }
+    public function materialesSalas()
+    {
+        return $this->belongsToMany(Materiales::class, 'material_salas', 'salas_id', 'materiales_id')
+            ->withPivot('cantidad');
+    }
+
 }

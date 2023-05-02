@@ -49,6 +49,11 @@ class RoleSeeder extends Seeder
         Permission::create(['name'=>'admin.eventos.update'])->syncRoles([$adm]);
         Permission::create(['name'=>'admin.eventos.delete'])->syncRoles([$adm]);
 
+        //Permisos Contenido Correo
+        Permission::create(['name'=>'admin.correoContenido.index']) ->syncRoles([$adm]);
+        Permission::create(['name'=>'admin.correoContenido.store']) ->syncRoles([$adm]);
+        Permission::create(['name'=>'admin.correoContenido.update']) ->syncRoles([$adm]);
+
 
     }
 }

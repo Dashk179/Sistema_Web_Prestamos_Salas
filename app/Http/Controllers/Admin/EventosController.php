@@ -26,8 +26,8 @@ class EventosController extends Controller
     public function index()
     {
 
-        $salas = Sala::all();
         $materiales = Materiales::all();
+        $salas = Sala::with('materiales','materialesSalas')->get();
         $eventos = Evento::with('materiales','users')->get();
         return view('admin.eventos.index', [
             'eventos' => $eventos,
@@ -84,9 +84,21 @@ class EventosController extends Controller
         } else {
 
             $newEvento->save();
+            $materiales = $request->input('materiales');
+            $cantidades = $request->input('cantidad');
 
-            //Aqui se guardan todos los materiales registrados en un evento
-            $newEvento ->materiales()->sync(  $request->input('materiales'),[]);//Aqui se guardan todos los materiales registrados en un evento
+            $materialSala = [];
+
+            foreach ($materiales as $key => $material) {
+                $cantidad = $cantidades[$key];
+                $materialSala[$material] = ['cantidad' => $cantidad];
+            }
+
+            $newEvento->materiales()->sync($materialSala);
+
+
+
+            return redirect()->back();
 
 
             //Una vez guardada la visita y registrada se envia un correo al usuario solicitante de la visita confirmando que su visita se registro con exito
@@ -119,13 +131,26 @@ class EventosController extends Controller
 
         return redirect()->back();
     }
-
     public function getMaterialesPorSala(Request $request)
     {
         $sala_id = $request->input('sala_id');
-        $materiales = Sala::findOrFail($sala_id)->materiales;
-        return response()->json(['materiales' => $materiales]);
+        $sala = Sala::findOrFail($sala_id);
+        $materiales = $sala->materiales;
+        $materiales_data = [];
+
+        foreach ($materiales as $material) {
+            $cantidad = $material->pivot->cantidad ?? 0;
+            $materiales_data[] = [
+                'id' => $material->id,
+                'nombre' => $material->nombre,
+                'cantidad' => $cantidad,
+            ];
+        }
+
+        return response()->json(['materiales' => $materiales_data]);
     }
+
+
 
 
 

@@ -57,8 +57,8 @@ Route::delete('/admin/materiales/{materialId}/delete', [App\Http\Controllers\Adm
 Route::get('/admin/eventos/store', [App\Http\Controllers\Admin\EventosController::class, 'correoEventoRegistrado'])->name('admin.eventos.store');
 
 //Contenido de correo
-Route::get('admin/correoContenido', [App\Http\Controllers\Admin\ContenidoCorreoController::class, 'index'])->name('admin.correoContenido.index');
-Route::post('admin/correoContenido/store', [App\Http\Controllers\Admin\ContenidoCorreoController::class, 'store'])->name('admin.correoContenido.store');
-Route::post('admin/correoContenido/{contenidoId}/update', [App\Http\Controllers\Admin\ContenidoCorreoController::class, 'update'])->name('admin.correoContenido.update');
+Route::get('admin/correoContenido', [App\Http\Controllers\Admin\ContenidoCorreoController::class, 'index'])->middleware('can:admin.materiales.index')->name('admin.correoContenido.index');
+Route::post('admin/correoContenido/store', [App\Http\Controllers\Admin\ContenidoCorreoController::class, 'store'])->middleware('can:admin.correoContenido.store')->name('admin.correoContenido.store');
+Route::post('admin/correoContenido/{contenidoId}/update', [App\Http\Controllers\Admin\ContenidoCorreoController::class, 'update'])->middleware('can:admin.correoContenido.update')->name('admin.correoContenido.update');
 
 Auth::routes();

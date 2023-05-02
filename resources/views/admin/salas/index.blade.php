@@ -45,9 +45,10 @@
                                         </td>
                                         <td>
 
-                                            @foreach($sala->materiales as $material)
-                                                <li>{{ $material->nombre }}</li>
+                                            @foreach($sala->materialesSalas as $material)
+                                                <li>{{ $material->nombre .' : '.$material->pivot->cantidad }}</li>
                                             @endforeach
+
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-warning" data-toggle="modal"
@@ -139,8 +140,7 @@
                                             <td><input type="checkbox" name="materiales[]" value="{{ $material->id }}">
                                             </td>
                                             <td>{{ $material->nombre }}</td>
-                                            <td><input type="number" name="cantidad[]" value="{{ $material->cantidad }}"
-                                                       disabled></td>
+                                            <td><input type="number" name="cantidad[{{ $material->id }}]" value="{{ old('cantidad.' . $material->id, 0) }}"></td>
                                         </tr>
                                     @endforeach
                                     </tbody>

@@ -340,13 +340,14 @@ return [
         [
             'text' => 'Registrar Jefe de Departamento',
             'url' => '/register',
-            'icon' => 'fas fa-solid fa-user-plus',
+            'icon' => 'fas fa-solid fa-user',
             'can' => 'register',
         ],
         [
             'text' => 'Contenido Correo',
             'url' => '/admin/correoContenido',
-            'icon' => 'fas fa-solid fa-user-plus',
+            'icon' => 'fas fa-solid fa-envelope',
+            'can' => 'admin.correoContenido.index',
         ],
 //        [
 //            'text'    => 'Materiales',

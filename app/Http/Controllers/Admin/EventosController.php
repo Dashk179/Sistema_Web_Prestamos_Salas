@@ -84,6 +84,7 @@ class EventosController extends Controller
         } else {
 
             $newEvento->save();
+
             $materiales = $request->input('materiales');
             $cantidades = $request->input('cantidad');
 
@@ -131,6 +132,16 @@ class EventosController extends Controller
 
         return redirect()->back();
     }
+
+
+    public function delete(Request $request, $eventoId)
+    {
+        $evento = (Evento::find($eventoId));
+        $evento->delete();
+
+        return redirect()->back();
+    }
+
     public function getMaterialesPorSala(Request $request)
     {
         $sala_id = $request->input('sala_id');
@@ -143,24 +154,11 @@ class EventosController extends Controller
             $materiales_data[] = [
                 'id' => $material->id,
                 'nombre' => $material->nombre,
-                'cantidad' => $cantidad,
+                'cantidad' => $material->cantidad,
             ];
         }
 
         return response()->json(['materiales' => $materiales_data]);
     }
-
-
-
-
-
-    public function delete(Request $request, $eventoId)
-    {
-        $evento = (Evento::find($eventoId));
-        $evento->delete();
-
-        return redirect()->back();
-    }
-
 
 }

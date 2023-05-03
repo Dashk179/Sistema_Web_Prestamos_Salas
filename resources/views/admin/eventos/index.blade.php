@@ -71,7 +71,7 @@
                                         <td>
 
                                             @foreach($evento->materiales as $material)
-                                                <li>{{ $material->nombre }}</li>
+                                                <li>{{  $material->nombre .' : '. $material->cantidad }}</li>
                                             @endforeach
                                         </td>
 
@@ -273,7 +273,7 @@
                                 var material = materiales[i];
                                 var checkbox = '<td><input type="checkbox" name="materiales[]" value="' + material.id + '"></td>';
                                 var nombre = '<td>' + material.nombre + '</td>';
-                                var cantidad = '<td><input type="number" name="cantidad[]" value="' + material.cantidad + '" ></td>';
+                                var cantidad = '<td><input type="number" name="cantidad[]" value="' + material.cantidad + '"></td>';
                                 var fila = '<tr>' + checkbox + nombre + cantidad + '</tr>';
                                 tabla_materiales.append(fila);
                             }

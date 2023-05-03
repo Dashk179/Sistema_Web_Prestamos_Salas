@@ -23,7 +23,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body table-responsive">
-                            <table id="categories" class="table table-bordered table-striped" >
+                            <table id="categories" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
@@ -41,7 +41,8 @@
                                         <td>{{$sala ->nombre}}   </td>
                                         <td style="max-width: 200px; overflow-x: auto;">{{$sala->descripcion}}</td>
                                         <td>
-                                            <img src="{{asset($sala->imgSala)}}" alt="{{$sala->nombre}}"  class="img-thumbnail img-fluid" style="height: 150px; width: 150px;">
+                                            <img src="{{asset($sala->imgSala)}}" alt="{{$sala->nombre}}"
+                                                 class="img-thumbnail img-fluid" style="height: 150px; width: 150px;">
                                         </td>
                                         <td>
 
@@ -140,7 +141,12 @@
                                             <td><input type="checkbox" name="materiales[]" value="{{ $material->id }}">
                                             </td>
                                             <td>{{ $material->nombre }}</td>
-                                            <td><input type="number" name="cantidad[{{ $material->id }}]" value="{{ old('cantidad.' . $material->id, 0) }}"></td>
+                                            <td>
+                                                <input type="number" name="cantidad[{{ $material->id }}]"
+                                                       value="{{ old('cantidad.' . $material->id, $material->cantidad) }}"
+                                                       min="0" max="{{ $material->cantidad }}">
+                                            </td>
+
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -175,14 +181,43 @@
                         "infoEmpty": "No hay registros disponibles",
                         "infoFiltered": "(Filtrado de _MAX_ registros totales)",
                         'search': 'Buscar',
-                        'paginate':{
+                        'paginate': {
                             'next': 'Siguiente',
-                            'previous':'Anterior'
+                            'previous': 'Anterior'
                         }
                     }
                 });
             });
         </script>
+        <script>
+            $(document).ready(function () {
+                $('#salas-id').change(function () {
+                    var sala_id = $(this).val();
+                    $.ajax({
+                        url: "{{ route('getMaterialesPorSala') }}",
+                        type: "GET",
+                        data: {sala_id: sala_id},
+                        success: function (response) {
+                            var materiales = response.materiales;
+                            var tabla_materiales = $('#tabla-materiales tbody');
+                            tabla_materiales.empty();
+                            for (var i = 0; i < materiales.length; i++) {
+                                var material = materiales[i];
+                                var checkbox = '<td><input type="checkbox" name="materiales[]" value="' + material.id + '"></td>';
+                                var nombre = '<td>' + material.nombre + '</td>';
+                                var cantidad = '<td><input type="number" name="cantidad[]" value="' + material.cantidad + '" min="0" max="' + material.cantidad + '"></td>';
+                                var fila = '<tr>' + checkbox + nombre + cantidad + '</tr>';
+                                tabla_materiales.append(fila);
+                            }
+                        },
+                        error: function (response) {
+                            console.log(response);
+                        }
+                    });
+                });
+            });
+        </script>
+
     @stop
 
 @endsection

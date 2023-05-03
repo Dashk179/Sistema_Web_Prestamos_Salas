@@ -98,4 +98,23 @@ class SalasController extends Controller
         return redirect()->back();
     }
 
+    public function getMaterialesPorSala(Request $request)
+    {
+        $sala_id = $request->input('sala_id');
+        $sala = Sala::findOrFail($sala_id);
+        $materiales = $sala->materiales;
+        $materiales_data = [];
+
+        foreach ($materiales as $material) {
+            $cantidad = $material->pivot->cantidad ?? 0;
+            $materiales_data[] = [
+                'id' => $material->id,
+                'nombre' => $material->nombre,
+                'cantidad' => $material->cantidad,
+            ];
+        }
+
+        return response()->json(['materiales' => $materiales_data]);
+    }
+
 }

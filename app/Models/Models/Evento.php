@@ -19,5 +19,9 @@ class Evento extends Model
 public function users(){
     return $this->belongsTo(User::class,'user_id', 'name');
 }
-
+    public function materialesEvento()
+    {
+        return $this->belongsToMany(Materiales::class, 'evento_materiales', 'eventos_id', 'materiales_id')
+            ->withPivot('cantidad');
+    }
 }

@@ -28,7 +28,7 @@ class EventosController extends Controller
 
         $materiales = Materiales::all();
         $salas = Sala::with('materiales','materialesSalas')->get();
-        $eventos = Evento::with('materiales','users')->get();
+        $eventos = Evento::with('materiales','users','materialesEvento')->get();
         return view('admin.eventos.index', [
             'eventos' => $eventos,
             'salas' => $salas,
@@ -145,20 +145,16 @@ class EventosController extends Controller
     public function getMaterialesPorSala(Request $request)
     {
         $sala_id = $request->input('sala_id');
-        $sala = Sala::findOrFail($sala_id);
-        $materiales = $sala->materiales;
-        $materiales_data = [];
-
-        foreach ($materiales as $material) {
-            $cantidad = $material->pivot->cantidad ?? 0;
-            $materiales_data[] = [
-                'id' => $material->id,
-                'nombre' => $material->nombre,
-                'cantidad' => $material->cantidad,
-            ];
-        }
+        $materiales_data = DB::table('material_salas')
+            ->join('materiales', 'materiales.id', '=', 'material_salas.materiales_id')
+            ->where('material_salas.salas_id', $sala_id)
+            ->select('materiales.id', 'materiales.nombre', 'material_salas.cantidad')
+            ->get();
 
         return response()->json(['materiales' => $materiales_data]);
     }
+
+
+
 
 }

@@ -69,9 +69,8 @@
                                         <td>{{$evento ->email_solicitante}}</td>
 
                                         <td>
-
-                                            @foreach($evento->materiales as $material)
-                                                <li>{{  $material->nombre .' : '. $material->cantidad }}</li>
+                                            @foreach($evento->materialesEvento as $material)
+                                                <li>{{ $material->nombre .' : '.$material->pivot->cantidad }}</li>
                                             @endforeach
                                         </td>
 
@@ -196,7 +195,9 @@
                                         <tr>
                                             <td><input type="checkbox" name="materiales[]" value="{{ $material->id }}"></td>
                                             <td>{{ $material->nombre }}</td>
-                                            <td><input type="number" name="cantidad[{{ $material->id }}]" value="{{ old('cantidad.' . $material->id, 0) }}"></td>
+                                            <td><input type="number" name="cantidad[{{ $material->id }}]"
+                                                       value="{{ old('cantidad.' . $material->id, $material->cantidad) }}">
+                                            </td>
                                         </tr>
                                     @endforeach
 
@@ -258,14 +259,14 @@
             });
         </script>
         <script>
-            $(document).ready(function() {
-                $('#salas-id').change(function() {
+            $(document).ready(function () {
+                $('#salas-id').change(function () {
                     var sala_id = $(this).val();
                     $.ajax({
                         url: "{{ route('getMaterialesPorSala') }}",
                         type: "GET",
                         data: {sala_id: sala_id},
-                        success: function(response) {
+                        success: function (response) {
                             var materiales = response.materiales;
                             var tabla_materiales = $('#tabla-materiales tbody');
                             tabla_materiales.empty();
@@ -273,12 +274,12 @@
                                 var material = materiales[i];
                                 var checkbox = '<td><input type="checkbox" name="materiales[]" value="' + material.id + '"></td>';
                                 var nombre = '<td>' + material.nombre + '</td>';
-                                var cantidad = '<td><input type="number" name="cantidad[]" value="' + material.cantidad + '"></td>';
+                                var cantidad = '<td><input type="number" name="cantidad[]" value="' + material.cantidad + '" min="0" max="' + material.cantidad + '"></td>';
                                 var fila = '<tr>' + checkbox + nombre + cantidad + '</tr>';
                                 tabla_materiales.append(fila);
                             }
                         },
-                        error: function(response) {
+                        error: function (response) {
                             console.log(response);
                         }
                     });

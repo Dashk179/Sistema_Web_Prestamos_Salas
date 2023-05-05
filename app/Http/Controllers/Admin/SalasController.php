@@ -81,6 +81,17 @@ class SalasController extends Controller
         $sala->nombre = $request->nombre;
         $sala->descripcion = $request->descripcion;
         $sala->save();
+        $materiales = $request->input('materiales');
+        $cantidades = $request->input('cantidad');
+
+        $materialSala = array();
+
+        foreach ($materiales as $material) {
+            $cantidad = $cantidades[$material] ?? 0;
+            $materialSala[$material] = ['cantidad' => $cantidad];
+        }
+
+        $sala->materiales()->sync($materialSala);
         return redirect()->back();
     }
 

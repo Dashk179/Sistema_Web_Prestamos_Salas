@@ -17,6 +17,7 @@
                         <label for="descripcion">Fecha Salida</label>
                         <input type="datetime-local" name="fecha_salida" class="form-control" id="fecha-salida" value="{{$evento ->fecha_salida}}">
                     </div>
+
                 </div>
 
                 <div class="modal-footer justify-content-between">

@@ -48,7 +48,7 @@ Route::delete('/admin/eventos/{eventoId}/delete', [App\Http\Controllers\Admin\Ev
 //Materiales
 Route::get('/admin/materiales', [App\Http\Controllers\Admin\MaterialesController::class, 'index'])->middleware('can:admin.materiales.index')->name('admin.materiales.index');
 Route::post('/admin/materiales/store', [App\Http\Controllers\Admin\MaterialesController::class, 'store'])->middleware('can:admin.materiales.store')->name('admin.materiales.store');
-Route::post('/admin/materiales/{materialId}/update', [App\Http\Controllers\Admin\MaterialesController::class, 'update'])->middleware('can:admin..materiales.update')->name('admin.materiales.update');
+Route::post('/admin/materiales/{materialId}/update', [App\Http\Controllers\Admin\MaterialesController::class, 'update'])->middleware('can:admin.materiales.update')->name('admin.materiales.update');
 Route::delete('/admin/materiales/{materialId}/delete', [App\Http\Controllers\Admin\MaterialesController::class, 'delete'])->middleware('can:admin.materiales.delete')->name('admin.materiales.delete');
 
 //

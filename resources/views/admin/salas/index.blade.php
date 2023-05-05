@@ -56,15 +56,17 @@
                                                     data-target="#modal-update-salas-{{$sala->id}}">
                                                 Editar
                                             </button>
+                                            @include('admin.salas.modal-update-salas')
                                             <form action="{{route('admin.salas.delete',$sala->id)}}"
                                                   method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger">Eliminar</button>
+
                                             </form>
                                         </td>
                                     </tr>
-                                    @include('admin.salas.modal-update-salas')
+
                                 @endforeach
                                 </tbody>
                                 <tfoot>
@@ -87,6 +89,7 @@
             </div>
             <!-- /.row -->
         </div>
+
 
         <!-- modal -->
         <div class="modal fade" id="modal-create-salas">
@@ -138,8 +141,7 @@
                                     <tbody>
                                     @foreach ($materiales as $material)
                                         <tr>
-                                            <td><input type="checkbox" name="materiales[]" value="{{ $material->id }}">
-                                            </td>
+                                            <td><input type="checkbox" name="materiales[]" value="{{ $material->id }}"></td>
                                             <td>{{ $material->nombre }}</td>
                                             <td>
                                                 <input type="number" name="cantidad[{{ $material->id }}]"
@@ -151,6 +153,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
+
                             </div>
                         </div>
 
@@ -189,6 +192,7 @@
                 });
             });
         </script>
+
         <script>
             $(document).ready(function () {
                 $('#salas-id').change(function () {

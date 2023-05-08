@@ -37,6 +37,7 @@ Route::post('/admin/salas/store', [App\Http\Controllers\Admin\SalasController::c
 Route::post('/admin/salas/{salaId}/update', [App\Http\Controllers\Admin\SalasController::class, 'update'])->middleware('can:admin.salas.update')->name('admin.salas.update');
 Route::delete('/admin/salas/{salaId}/delete', [App\Http\Controllers\Admin\SalasController::class, 'delete'])->middleware('can:admin.salas.delete')->name('admin.salas.delete');
 
+
 //Eventos
 Route::get('/eventos', [App\Http\Controllers\HomeController::class, 'eventos'])->name('eventos');
 Route::get('/admin/eventos', [App\Http\Controllers\Admin\EventosController::class, 'index'])->name('admin.eventos.index');

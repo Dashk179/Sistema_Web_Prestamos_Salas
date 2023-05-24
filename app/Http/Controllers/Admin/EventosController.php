@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Mail\EventoRegistrado;
+use App\Models\Models\ContenidoCorreo;
 use App\Models\Models\Evento;
 use App\Models\Models\Evento_material_tablas;
 use App\Models\Models\Materiales;
@@ -25,14 +26,17 @@ class EventosController extends Controller
 
     public function index()
     {
-
+        $encabezado = DB::table('contenido_correos')->where('id', 1)->value('encabezado');
+        $piedepagina = DB::table('contenido_correos')->where('id', 1)->value('piedepagina');
         $materiales = Materiales::all();
         $salas = Sala::with('materiales','materialesSalas')->get();
         $eventos = Evento::with('materiales','users','materialesEvento')->get();
         return view('admin.eventos.index', [
             'eventos' => $eventos,
             'salas' => $salas,
-            'materiales' => $materiales
+            'materiales' => $materiales,
+            'encabezado' => $encabezado,
+            'piedepagina' => $piedepagina
         ]);
     }
 
@@ -99,7 +103,7 @@ class EventosController extends Controller
 
 
 
-            return redirect()->back();
+           
 
 
             //Una vez guardada la visita y registrada se envia un correo al usuario solicitante de la visita confirmando que su visita se registro con exito

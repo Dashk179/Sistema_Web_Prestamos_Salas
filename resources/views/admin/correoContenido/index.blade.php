@@ -89,7 +89,7 @@
                                 <input type="file" name="encabezado" class="form-control " id="encabezado">
                             </div>
                             <div class="form-group">
-                                <label for="piedepagina">Imagen Sala</label>
+                                <label for="piedepagina">Pie de Pagina</label>
                                 <input type="file" name="piedepagina" class="form-control " id="piedepagina">
                             </div>
                         </div>

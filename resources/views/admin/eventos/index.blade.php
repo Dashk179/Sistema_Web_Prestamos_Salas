@@ -191,6 +191,7 @@
                                     </thead>
 
                                     <tbody>
+                                    @if ($salas->count() > 0)
                                     @foreach ($salas->materialesSalas as $material)
                                         <tr>
                                             <td><input type="checkbox" name="materiales[]" value="{{ $material->id }}"></td>
@@ -200,7 +201,9 @@
                                             </td>
                                         </tr>
                                     @endforeach
-
+                                    @else
+                                    <p>No se encontraron materiales</p>
+                                @endif
                                     </tbody>
 
                                 </table>

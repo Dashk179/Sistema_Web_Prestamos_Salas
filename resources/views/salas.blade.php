@@ -33,16 +33,21 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach ($salas->eventos()->orderBy('fecha_entrada', 'asc')->get() as $evento)
-                        @if($evento->fecha_entrada >= now())
+                        @forelse ($salas->eventos()->orderBy('fecha_entrada', 'asc')->get() as $evento)
+                            @if($evento->fecha_entrada >= now())
+                                <tr>
+                                    <td>{{ \Carbon\Carbon::parse($evento->fecha_entrada)->format('Y-m-d') }}</td>
+                                    <td>{{ substr(\Carbon\Carbon::parse($evento->fecha_entrada)->toTimeString(), 0, 5) }}</td>
+                                    <td>{{ substr(\Carbon\Carbon::parse($evento->fecha_salida)->toTimeString(), 0, 5) }}</td>
+                                </tr>
+                            @endif
+                        @empty
                             <tr>
-                                <td>{{ \Carbon\Carbon::parse($evento->fecha_entrada)->format('Y-m-d') }}</td>
-                                <td>{{ substr(\Carbon\Carbon::parse($evento->fecha_entrada)->toTimeString(), 0, 5) }}</td>
-                                <td>{{ substr(\Carbon\Carbon::parse($evento->fecha_salida)->toTimeString(), 0, 5) }}</td>
+                                <td colspan="5">Todavia no hay visitas registradas para esta sala, puede agendar una visita con su Jefe de Departamento </td>
                             </tr>
-                        @endif
-                    @endforeach
+                        @endforelse
                     </tbody>
+                    
                 </table>
 
 

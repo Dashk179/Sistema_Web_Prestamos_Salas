@@ -274,25 +274,7 @@
                         </tr>
                         <tr>
                             <td align="center" valign="top" style="background-image: url({{ asset($piedepagina = DB::table('contenido_correos')->where('id', 1)->value('piedepagina')) }}); background-repeat: no-repeat; background-size: 100% 100%; font-size: 0; padding: 35px; height: 100%;">
-                              <!--[if (gte mso 9)|(IE)]>
-                              <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
-                              <tr>
-                              <td align="center" valign="top" width="600">
-                              <![endif]-->
-                              <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
-                                <tr>
-                                    
-                                </tr>
-                                <tr>
-                                    
-                                </tr>
-                              </table>
-                              <!--[if (gte mso 9)|(IE)]>
-                              </td>
-                              </tr>
-                              </table>
-                              <![endif]-->
-                            </td>
+                    
                           </tr>
                           
                         

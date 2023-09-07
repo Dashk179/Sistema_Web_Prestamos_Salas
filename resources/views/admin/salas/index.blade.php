@@ -4,6 +4,12 @@
 
 @section('content')
 
+@section('content_header')
+@if(session('warning')
+<div class="alert alert-warning">
+    {{ session('warning') }}
+</div>
+@endif
     @section('content_header')
         <h1>
             Sala

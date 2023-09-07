@@ -31,7 +31,7 @@ class SalasController extends Controller
         $request->validate([
             'nombre' => 'required',
             'descripcion' => 'required',
-            'imgSala' => 'required'
+            'imgSala' => 'required',
         ]);
 
         $newSala = new Sala();
@@ -52,16 +52,36 @@ class SalasController extends Controller
 
         $materialSala = array();
 
+        if (empty($materiales) || empty($cantidades)) {
+            session()->flash('warning', 'Antes de crear una sala necesitas añadir materiales al sistema.');
+            return redirect()->back();
+        }
+
         foreach ($materiales as $material) {
             $cantidad = $cantidades[$material] ?? 0;
             $materialSala[$material] = ['cantidad' => $cantidad];
         }
 
-        $newSala->materiales()->sync($materialSala);
+        $cantidad = $cantidades[$material] ?? 0;
+
+        $materialSala[$material] = ['cantidad' => $cantidad];
+
+
+
+
+            $newSala->materiales()->sync($materialSala);
+
+
         return redirect()->back();
 
+       }
 
-    }
+
+
+
+
+
+
 
     public function update(Request $request, $salaId)
     {

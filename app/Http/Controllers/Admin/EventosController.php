@@ -48,7 +48,9 @@ class EventosController extends Controller
             'salas_id' => 'required',
             'user_id' => 'required',
             'fecha_entrada' => 'required|date|before:fecha_salida',
-            'email_solicitante' => 'required'
+            'email_solicitante' => 'required',
+            'materiales' => 'required',
+            'cantidad' => 'required'
         ]);
 
 
@@ -103,7 +105,7 @@ class EventosController extends Controller
 
 
 
-           
+
 
 
             //Una vez guardada la visita y registrada se envia un correo al usuario solicitante de la visita confirmando que su visita se registro con exito

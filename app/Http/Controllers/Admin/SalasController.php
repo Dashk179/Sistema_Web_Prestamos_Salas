@@ -32,6 +32,8 @@ class SalasController extends Controller
             'nombre' => 'required',
             'descripcion' => 'required',
             'imgSala' => 'required',
+            'materiales' => 'required',
+            'cantidad' => 'required',
         ]);
 
         $newSala = new Sala();

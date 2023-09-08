@@ -49,8 +49,7 @@ class EventosController extends Controller
             'user_id' => 'required',
             'fecha_entrada' => 'required|date|before:fecha_salida',
             'email_solicitante' => 'required',
-            'materiales' => 'required',
-            'cantidad' => 'required'
+
         ]);
 
 
@@ -94,18 +93,18 @@ class EventosController extends Controller
             $materiales = $request->input('materiales');
             $cantidades = $request->input('cantidad');
 
-            $materialSala = [];
 
-            foreach ($materiales as $key => $material) {
-                $cantidad = $cantidades[$key];
-                $materialSala[$material] = ['cantidad' => $cantidad];
+            if ($materiales !== null && $cantidades !== null) {
+                $materialSala = [];
+
+                foreach ($materiales as $key => $material) {
+
+                    $cantidad = isset($cantidades[$key]) ? $cantidades[$key] : null;
+                    $materialSala[$material] = ['cantidad' => $cantidad];
+                }
+
+                $newEvento->materiales()->sync($materialSala);
             }
-
-            $newEvento->materiales()->sync($materialSala);
-
-
-
-
 
 
             //Una vez guardada la visita y registrada se envia un correo al usuario solicitante de la visita confirmando que su visita se registro con exito

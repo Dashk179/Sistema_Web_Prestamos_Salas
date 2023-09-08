@@ -180,6 +180,7 @@
                                 <br>
                                 @enderror
                             </div>
+
                             <div class="form-group">
                                 <table id="tabla-materiales">
                                     <thead>
@@ -207,6 +208,7 @@
                                     </tbody>
 
                                 </table>
+
                             </div>
 
 
